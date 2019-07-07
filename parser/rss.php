@@ -36,7 +36,7 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= 20; $i++) {
+	for ($i = 0; $i <= $i; $i++) {
 	
 	if($xml->channel->item[$i]->title == ''){ break; }
 
