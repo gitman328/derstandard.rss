@@ -1,11 +1,6 @@
 <?php 
 //
-	@$dbmysqli = mysqli_connect("localhost", "sql-benutzername", "sql-passwort", "sql-datenbank");
-
-	if (mysqli_connect_errno())
-	{
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
+	include("parser/config.php");
 	
 	if(!isset($_REQUEST['kategorie']) or $_REQUEST['kategorie'] == ""){ $_REQUEST['kategorie'] = ""; }
 	$kategorie = $_REQUEST['kategorie'];
@@ -202,52 +197,52 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto header-bar">
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=">Aktuell</a>
+            <a class="nav-link" href="./?kategorie=<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Aktuell</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Diskurs">Diskurs</a>
+            <a class="nav-link" href="./?kategorie=Diskurs<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Diskurs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Etat">Etat</a>
+            <a class="nav-link" href="./?kategorie=Etat<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Etat</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Gesundheit">Gesundheit</a>
+            <a class="nav-link" href="./?kategorie=Gesundheit<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Gesundheit</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Immobilien">Immobilien</a>
+            <a class="nav-link" href="./?kategorie=Immobilien<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Immobilien</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Inland">Inland</a>
+            <a class="nav-link" href="./?kategorie=Inland<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Inland</a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=International">International</a>
+            <a class="nav-link" href="./?kategorie=International<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">International</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Karriere">Karriere</a>
+            <a class="nav-link" href="./?kategorie=Karriere<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Karriere</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Kultur">Kultur</a>
+            <a class="nav-link" href="./?kategorie=Kultur<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Kultur</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Lifestyle">Lifestyle</a>
+            <a class="nav-link" href="./?kategorie=Lifestyle<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Lifestyle</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Panorama">Panorama</a>
+            <a class="nav-link" href="./?kategorie=Panorama<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Panorama</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Sport">Sport</a>
+            <a class="nav-link" href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Sport</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Web">Web</a>
+            <a class="nav-link" href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Web</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Wirtschaft">Wirtschaft</a>
+            <a class="nav-link" href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Wirtschaft</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=Wissenschaft">Wissenschaft</a>
+            <a class="nav-link" href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Wissenschaft</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./?kategorie=diestandard">diestandard</a>
+            <a class="nav-link" href="./?kategorie=diestandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">diestandard</a>
           </li>
         </ul>
       </div>
@@ -261,7 +256,6 @@
 
       <div class="col-lg-2">
 
-        <h1 class="my-4"><?php echo $menue_title; ?></h1>
         <div class="list-group nav-bar">
           <a href="./?kategorie=<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active0; ?>">Aktuell</a>
           <a href="./?kategorie=Diskurs<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active1; ?>">Diskurs</a>
@@ -342,11 +336,6 @@
 
       </div>
       <!-- /.col-lg-9 -->
-      
-      <!--<div class="col-lg-1">
-      <div class="spacer_30"></div>
-      <small>Lorem ipsum</small>
-      </div>-->
 
     </div>
     <!-- /.row -->
@@ -430,9 +419,9 @@
   function change_view_mode(){
   var kategorie = '<?php echo $kategorie; ?>';
   if($("#view_mode").is(':checked')){
-  window.location.href='http://10.0.0.84/cdn7/pages/derstandard.rss?kategorie='+kategorie+''+"&textmode=1";
+  window.location.href='./?kategorie='+kategorie+''+"&textmode=1";
   } else { 
-  window.location.href='http://10.0.0.84/cdn7/pages/derstandard.rss?kategorie='+kategorie+''+"&textmode=0";
+  window.location.href='./?kategorie='+kategorie+''+"&textmode=0";
   }
   }
   </script>

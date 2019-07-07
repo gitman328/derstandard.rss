@@ -1,11 +1,6 @@
 <?php 
 //
-	@$dbmysqli = mysqli_connect("localhost", "sql-benutzername", "sql-passwort", "sql-datenbank");
-
-	if (mysqli_connect_errno())
-	{
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
+	include("parser/config.php");
 	
 	$category = $_REQUEST['category'];
 	$term = $_REQUEST['term'];
