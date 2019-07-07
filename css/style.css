@@ -1,0 +1,185 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+  padding-top: 56px;
+}
+.scroll-to-top {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	display: none;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	color: #000;
+	background: rgba(204, 204, 204, 0.5);
+	line-height: 45px;
+}
+.scroll-to-top:hover {
+	background-color:#C8C5C5;
+}
+.scroll-to-top i {
+	font-weight: 800;
+}
+
+.spacer_3 {
+	clear: both;
+	width:100%;
+	height: 3px;
+}
+.spacer_5 {
+	clear: both;
+	width:100%;
+	height: 5px;
+}
+.spacer_6 {
+	clear: both;
+	width:100%;
+	height: 6px;
+}
+.spacer_7 {
+	clear: both;
+	width:100%;
+	height: 7px;
+}
+.spacer_8 {
+	clear: both;
+	width:100%;
+	height: 8px;
+}
+.spacer_9 {
+	clear: both;
+	width:100%;
+	height: 9px;
+}
+.spacer_10 {
+	clear: both;
+	width:100%;
+	height: 10px;
+}
+.spacer_20 {
+	clear: both;
+	width:100%;
+	height: 20px;
+}
+.spacer_30 {
+	clear: both;
+	width:100%;
+	height: 30px;
+}
+.spacer_40 {
+	clear: both;
+	width:100%;
+	height: 40px;
+}
+.spacer_50 {
+	clear: both;
+	width:100%;
+	height: 50px;
+}
+.spacer_60 {
+	clear: both;
+	width:100%;
+	height: 60px;
+}
+.spacer_70 {
+	clear: both;
+	width:100%;
+	height: 70px;
+}
+.spacer_80 {
+	clear: both;
+	width:100%;
+	height: 80px;
+}
+.spacer_90 {
+	clear: both;
+	width:100%;
+	height: 90px;
+}
+.spacer_100 {
+	clear: both;
+	width:100%;
+	height: 100px;
+}
+#search_result {
+	padding-top: 15px;	
+}
+
+/*==========  Mobile Method  ==========*/
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+.nav-bar {
+	display:none;
+}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+.nav-bar {
+	display:none;
+}
+.input-group-dropdown {
+	margin-bottom:4px;
+}
+.input-group-field {
+	margin-bottom:5px;
+}
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+.nav-bar {
+	display:none;
+}
+.input-group-field {
+	margin-right:5px;
+}
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+.nav-bar {
+	display:none;
+}
+.scroll-to-top {
+	position: fixed;
+	right: 5px;
+	bottom: 5px;
+	display: none;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	color: #000;
+	background: rgba(204, 204, 204, 0.5);
+	line-height: 25px;
+}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 992px) {
+.header-bar {
+	display:none;
+}
+}
+
+.header-bar-content {
+	width: auto;
+	color: #FFF;
+	font-size: 12px;
+	padding-top: 8px;
+}
+.header-bar-content .sp1 {
+	width: auto;
+	float: left;
+	padding-top: 2px;
+}
+.header-bar-content .sp2 {
+	width: auto;
+	float: left;
+	padding-left: 3px;
+}
