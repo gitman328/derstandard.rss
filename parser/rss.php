@@ -1,11 +1,6 @@
 <?php 
 //
-	@$dbmysqli = mysqli_connect("localhost", "sql-benutzername", "sql-passwort", "sql-datenbank");
-
-	if (mysqli_connect_errno())
-	{
-	echo "Failed to connect to MySQL: " . mysqli_connect_error();
-	}
+	include("config.php");
 
 	$rubric;
 	$rubric["top_news"] = "";
@@ -36,7 +31,7 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= $i; $i++) {
+	for ($i = 0; $i <= 20; $i++) {
 	
 	if($xml->channel->item[$i]->title == ''){ break; }
 
@@ -65,6 +60,21 @@
 	$hash = hash('md4',$link);
 	
 	if($rubric_desc == ""){ $rubric_desc = "top_news"; }
+
+//	$item_no = $i + 1;
+//	echo $item_no.'<br>';
+//	echo 'Rubrik desc: '.$rubric_desc.'<br>';
+//	echo 'Kategorie: '.$category.'<br>';
+//	echo 'Title: '.$title.'<br>';
+//	echo 'Beschreibung: '.$description.'<br>';
+//	echo 'Image: '.$image.'<br>';
+//	echo 'Link: '.$link.'<br>';
+//	echo 'Datum: '.$date.'<br>';
+//	echo 'Zeit: '.$time.'<br>';
+//	echo 'Timestamp: '.$timestamp.'<br>';
+//	echo 'Hash: '.$hash.'<br>';
+//	echo '<hr>
+//	';
 	
 	$sql_0 = mysqli_query($dbmysqli, "SELECT COUNT(id) FROM `".$rubric_desc."` WHERE `hash` LIKE '".$hash."' ");
 	$result_0 = mysqli_fetch_row($sql_0);
