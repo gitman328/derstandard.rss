@@ -31,7 +31,7 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= 20; $i++) {
+	for ($i = 0; $i <= $i; $i++) {
 	
 	if($xml->channel->item[$i]->title == ""){ break; }
 
@@ -61,38 +61,38 @@
 	
 	if($rubric_desc == ""){ $rubric_desc = "top_news"; }
 	
-	//$sql_0 = mysqli_query($dbmysqli, "SELECT COUNT(id) FROM `".$rubric_desc."` WHERE `hash` LIKE '".$hash."' ");
-//	$result_0 = mysqli_fetch_row($sql_0);
-//	$summary = $result_0[0];
-//	
-//	if($summary == 0)
-//	{
-//	mysqli_query($dbmysqli, "INSERT INTO `".$rubric_desc."` 
-//	(
-//	`category`, 
-//	`title`, 
-//	`description`, 
-//	`image`, 
-//	`link`, 
-//	`pubdate`, 
-//	`date`, 
-//	`timestamp`, 
-//	`hash`
-//	) 
-//	VALUES 
-//	(
-//	'".$category."', 
-//	'".$title."', 
-//	'".$description."', 
-//	'".$image."', 
-//	'".$link."', 
-//	'".$pubdate."', 
-//	'".$date."', 
-//	'".$timestamp."', 
-//	'".$hash."' 
-//	)
-//	");
-//	}
+	$sql_0 = mysqli_query($dbmysqli, "SELECT COUNT(id) FROM `".$rubric_desc."` WHERE `hash` LIKE '".$hash."' ");
+	$result_0 = mysqli_fetch_row($sql_0);
+	$summary = $result_0[0];
+	
+	if($summary == 0)
+	{
+	mysqli_query($dbmysqli, "INSERT INTO `".$rubric_desc."` 
+	(
+	`category`, 
+	`title`, 
+	`description`, 
+	`image`, 
+	`link`, 
+	`pubdate`, 
+	`date`, 
+	`timestamp`, 
+	`hash`
+	) 
+	VALUES 
+	(
+	'".$category."', 
+	'".$title."', 
+	'".$description."', 
+	'".$image."', 
+	'".$link."', 
+	'".$pubdate."', 
+	'".$date."', 
+	'".$timestamp."', 
+	'".$hash."' 
+	)
+	");
+	}
 	
 	}
 	}
