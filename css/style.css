@@ -6,6 +6,7 @@
 body {
   padding-top: 56px;
 }
+
 .scroll-to-top {
 	position: fixed;
 	right: 15px;
@@ -18,9 +19,11 @@ body {
 	background: rgba(204, 204, 204, 0.5);
 	line-height: 45px;
 }
+
 .scroll-to-top:hover {
 	background-color:#C8C5C5;
 }
+
 .scroll-to-top i {
 	font-weight: 800;
 }
@@ -146,6 +149,7 @@ body {
 .nav-bar {
 	display:none;
 }
+
 .scroll-to-top {
 	position: fixed;
 	right: 5px;
@@ -182,4 +186,11 @@ body {
 	width: auto;
 	float: left;
 	padding-left: 3px;
+}
+.img-container {
+	width: 150px;
+	height: 85px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
 }
