@@ -14,7 +14,7 @@
 	while ($obj = mysqli_fetch_object($result)){
 	{
 	
-	if($category == 'alle'){ $title = '<strong>'.$obj->category.'</strong> | '; } else { $title = ''; }
+	if($category == "alle"){ $title = "<strong>".$obj->category."</strong> | "; } else { $title = ""; }
 	
 	if(!isset($result_list) or $result_list == ""){ $result_list = ""; }
 	
@@ -31,7 +31,7 @@
 	}
 	}
 	
-	if($result_list == ""){ echo 'Mit dem Suchbegriff wurden keine Nachrichten gefunden..'; } else { echo $result_list; }
+	if($result_list == ""){ echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden.."; } else { echo $result_list; }
 	
 	} // category search
 	
@@ -67,8 +67,8 @@
 	
 	if(!isset($result_list) or $result_list == ""){ $result_list = ""; }
 	
-	if($result['category'] != ""){
-	
+	if($result['category'] != "")
+	{
 	$loop = $loop + 1;
 	
 	$result_list = $result_list.'
@@ -82,9 +82,9 @@
 	}
 	}
 	
-	if($loop > 100){ $max_msg = 'Maximal <strong>100</strong> Treffer werden angezeigt.'; } else { $max_msg = ''; }
+	if($loop > 100){ $max_msg = "Maximal <strong>100</strong> Treffer werden angezeigt."; } else { $max_msg = ""; }
 	
-	if($result_list == ""){ echo 'Mit dem Suchbegriff wurden keine Nachrichten gefunden..'; } else { echo $result_list.$max_msg; }
+	if($result_list == ""){ echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden.."; } else { echo $result_list.$max_msg; }
 	
 	} // full search
 
