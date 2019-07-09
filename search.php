@@ -62,29 +62,41 @@
 	foreach( $rubric as $key => $rubric_desc)
 	{
 	
-	$sql = mysqli_query($dbmysqli, "SELECT * FROM `".$rubric_desc."` WHERE `title` LIKE '%".$term."%' OR `description` LIKE '%".$term."%' ORDER BY `timestamp` DESC LIMIT 0,100");
-	$result = mysqli_fetch_assoc($sql);
+	$sql = "SELECT * FROM `".$rubric_desc."` WHERE `title` LIKE '%".$term."%' OR `description` LIKE '%".$term."%' ORDER BY `timestamp` DESC LIMIT 0,100 ";
 	
-	if(!isset($result_list) or $result_list == ""){ $result_list = ""; }
-	
-	if($result['category'] != "")
+	if ($result = mysqli_query($dbmysqli,$sql))
+	{
+	while ($obj = mysqli_fetch_object($result)){
 	{
 	$loop = $loop + 1;
+	if(!isset($result_list) or $result_list == ""){ $result_list = ""; }
 	
 	$result_list = $result_list.'
 	<div style="background-color:#FFFFFF; padding-left: 5px; border: thin solid #F0F0F0;">
 	<div class="spacer_3"></div>
-	<div style="font-size: 15px;">'.$result['date'].' | <strong><a href="'.$result['link'].'" target="_blank">'.$result['title'].'</a></strong> | <small class="text-muted">'.$result['category'].'</small></strong><br>'.$result['description'].'</div>
+	<div style="font-size: 15px;">'.$obj->date.' | <strong><a href="'.$obj->link.'" target="_blank">'.$obj->title.'</a></strong> | <small class="text-muted">'.$obj->category.'</small></strong><br>'.$obj->description.'</div>
 	<div class="spacer_5"></div>
 	</div>
 	<div class="spacer_20"></div>
 	';
 	}
 	}
+	}
+	
+	}
+	
+	$result_msg = "Mit dem Suchbegriff gibt es <strong>".$loop."</strong> Treffer.<div class=\"spacer_20\"></div>";
 	
 	if($loop > 100){ $max_msg = "Maximal <strong>100</strong> Treffer werden angezeigt."; } else { $max_msg = ""; }
 	
-	if($result_list == ""){ echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden.."; } else { echo $result_list.$max_msg; }
+	if($result_list == "")
+	{ 
+	echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden..";
+	
+	} else { 
+	
+	echo $result_msg.$result_list.$max_msg; 
+	}
 	
 	} // full search
 
