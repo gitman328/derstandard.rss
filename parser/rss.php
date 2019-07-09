@@ -31,7 +31,7 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= $i; $i++) {
+	for ($i = 0; $i <= 20; $i++) {
 	
 	if($xml->channel->item[$i]->title == ""){ break; }
 
@@ -57,7 +57,7 @@
 	
 	$time = date("H:i", $timestamp);
 	
-	$hash = hash("md4",$link);
+	$hash = hash("md4",$title);
 	
 	if($rubric_desc == ""){ $rubric_desc = "top_news"; }
 	
