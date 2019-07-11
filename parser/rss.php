@@ -31,9 +31,9 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= 20; $i++) {
+	for ($i = 0; $i <= $i; $i++) {
 	
-	if($xml->channel->item[$i]->title == ""){ break; }
+	if(!isset($xml->channel->item[$i]->title) or $xml->channel->item[$i]->title == ""){ break; }
 
 	$category = trim($xml->channel->item[$i]->category);
 	$title = trim($xml->channel->item[$i]->title);
@@ -43,21 +43,17 @@
 	
 	// image
 	preg_match_all("#src=\"(.*?)\"#si", $description, $match_image);
+	if(!isset($match_image[0][0]) or $match_image[0][0] == ""){ $match_image[0][0] = ""; }
 	$image = str_replace("src=\"", "", $match_image[0][0]);
 	$image = str_replace("\"", "", $image);
 
-	// description
-	$description = strip_tags($description);
-	
+	$description = strip_tags($description);	
+	$link = str_replace("?ref=rss", "", $link);
 	$image = strtolower($image);
-	
 	$timestamp = strtotime($pubdate);
-	
 	$date = date("d.m.Y", $timestamp);
-	
 	$time = date("H:i", $timestamp);
-	
-	$hash = hash("md4",$title);
+	$hash = hash("md4", $title);
 	
 	if($rubric_desc == ""){ $rubric_desc = "top_news"; }
 	
