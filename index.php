@@ -83,7 +83,7 @@
 	{
 	$content_items = $content_items.'
 	<div class="col-sm-6 col-md-4 col-lg-4 mb-4">
-		<div class="card h-100">
+		<div id="'.$obj->id.'" class="card h-100">
 		<div class="spacer_10"></div>	
 		  <div align="center" class="img-container">
 		  <a href="'.$obj->link.'" target="_blank">
@@ -107,7 +107,7 @@
 	{
 	$content_items = $content_items.'
 	<div class="col-sm-4 col-md-2 col-lg-3 mb-4">
-		<div class="card h-100">
+		<div id="'.$obj->id.'" class="card h-100">
 		<div class="spacer_10"></div>
 		  <a href="'.$obj->link.'" target="_blank">
 		  <div class="card-body-text">
@@ -191,7 +191,7 @@
         <li class="nav-item"> <a class="nav-link" href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Web</a> </li>
         <li class="nav-item"> <a class="nav-link" href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Wirtschaft</a> </li>
         <li class="nav-item"> <a class="nav-link" href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Wissenschaft</a> </li>
-        <li class="nav-item"> <a class="nav-link" href="./?kategorie=diestandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">diestandard</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">dieStandard</a> </li>
       </ul>
     </div>
   </div>
@@ -205,7 +205,7 @@
         <!--<a href="./?kategorie=Meinung" class="list-group-item">Meinung</a>-->
         <a href="./?kategorie=Panorama<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active10; ?>">Panorama</a>
         <!--<a href="./?kategorie=Reisen" class="list-group-item">Reisen</a>-->
-        <a href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active11; ?>">Sport</a> <a href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active12; ?>">Web</a> <a href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active13; ?>">Wirtschaft</a> <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active14; ?>">Wissenschaft</a> <a href="./?kategorie=diestandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active15; ?>">diestandard</a> </div>
+        <a href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active11; ?>">Sport</a> <a href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active12; ?>">Web</a> <a href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active13; ?>">Wirtschaft</a> <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active14; ?>">Wissenschaft</a> <a href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active15; ?>">dieStandard</a> </div>
     </div>
     <!-- /.col-lg-2 -->
     <div class="col-lg-10">
@@ -231,7 +231,7 @@
               <option value="wissenschaft">&nbsp;Wissenschaft</option>
               <option value="diestandard">&nbsp;diestandard</option>
             </select>
-            <input class="input-group-field" id="term" type="text" style="width:350px">
+            <input class="input-group-field" id="term" type="text" style="width:350px" accept-charset=utf-8>
             <span class="input-group-append">
             <button type="button" class="btn btn-default" onclick="search_news();">Suchen</button>
             <span style="color:#0066FF; padding-left:20px;"> <span id="chevron" style="display:none;"> </span>
@@ -289,8 +289,7 @@
   var term = $("#term").val();
   var category = $("#search_category option:selected").val();
   var n = term.length;
-  if(term == '' || n <= 3){ return; }
-  //if(n < 3){ return; }
+  if(term == '' || n <= 2){ return; }
   
   $("#chevron").html("<i class=\"fa fa-chevron-up fa-2x\" style=\"color:#1F3169; cursor:pointer;\" title=\"Resultat ausblenden\" onclick=\"close_search_result()\"></i>");
   $("#chevron").fadeIn(1000);

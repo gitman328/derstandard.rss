@@ -31,7 +31,7 @@
 	}
 	}
 	
-	if($result_list == ""){ echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden.."; } else { echo $result_list; }
+	if(!isset($result_list) or $result_list == ""){ echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden..<div class=\"spacer_20\"></div>"; } else { echo $result_list; }
 	
 	} // category search
 	
@@ -89,9 +89,9 @@
 	
 	if($loop > 100){ $max_msg = "Maximal <strong>100</strong> Treffer werden angezeigt."; } else { $max_msg = ""; }
 	
-	if($result_list == "")
+	if(!isset($result_list) or $result_list == "")
 	{ 
-	echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden..";
+	echo "Mit dem Suchbegriff wurden keine Nachrichten gefunden..<div class=\"spacer_20\"></div>";
 	
 	} else { 
 	
