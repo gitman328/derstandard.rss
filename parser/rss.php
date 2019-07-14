@@ -31,7 +31,7 @@
 
 	if($xml){
     
-	for ($i = 0; $i <= $i; $i++) {
+	for ($i = 0; $i <= 20; $i++) {
 	
 	if(!isset($xml->channel->item[$i]->title) or $xml->channel->item[$i]->title == ""){ break; }
 
@@ -46,6 +46,11 @@
 	if(!isset($match_image[0][0]) or $match_image[0][0] == ""){ $match_image[0][0] = ""; }
 	$image = str_replace("src=\"", "", $match_image[0][0]);
 	$image = str_replace("\"", "", $image);
+	
+	// news id
+	$regex = '/(?<=\/)([0-9-]+)/is';
+	preg_match_all($regex, $link, $match_news_id);
+	$news_id = $match_news_id[0][0];
 
 	$description = strip_tags($description);	
 	$link = str_replace("?ref=rss", "", $link);
@@ -53,11 +58,10 @@
 	$timestamp = strtotime($pubdate);
 	$date = date("d.m.Y", $timestamp);
 	$time = date("H:i", $timestamp);
-	$hash = hash("md4", $title);
 	
 	if($rubric_desc == ""){ $rubric_desc = "top_news"; }
 	
-	$sql_0 = mysqli_query($dbmysqli, "SELECT COUNT(id) FROM `".$rubric_desc."` WHERE `hash` LIKE '".$hash."' ");
+	$sql_0 = mysqli_query($dbmysqli, "SELECT COUNT(id) FROM `".$rubric_desc."` WHERE `news_id` LIKE '".$news_id."' ");
 	$result_0 = mysqli_fetch_row($sql_0);
 	$summary = $result_0[0];
 	
@@ -73,7 +77,7 @@
 	`pubdate`, 
 	`date`, 
 	`timestamp`, 
-	`hash`
+	`news_id`
 	) 
 	VALUES 
 	(
@@ -85,7 +89,7 @@
 	'".$pubdate."', 
 	'".$date."', 
 	'".$timestamp."', 
-	'".$hash."' 
+	'".$news_id."' 
 	)
 	");
 	}
