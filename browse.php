@@ -16,8 +16,6 @@
 	if($rubric_desc_sql == ""){ $rubric_desc_sql = "top_news"; }
 
 	if($page == ""){ $page = 0; }
-	
-	$loop = 0;
 
 	$sql_0 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT ".$page.",104 ";
 	
@@ -25,7 +23,6 @@
 	{
 	while ($obj = mysqli_fetch_object($result_0)){
 	{
-	$loop = $loop +1;
 	$day_desc = date("l", $obj->timestamp);
 	$day_desc = str_replace("Monday", "Montag", $day_desc);
 	$day_desc = str_replace("Tuesday", "Dienstag", $day_desc);
@@ -131,6 +128,8 @@
 		</div>
 	  </div>
 	';
+
+	if(!isset($content_items) or $content_items == ""){ $content_items = ""; $show_more_tab = ""; }
 	
 	echo $content_items.$show_more_tab;
 
