@@ -34,13 +34,14 @@
 	if($kategorie == "" and $textmode == "1"){ $rubric_desc_sql = "top_news"; $limit = "104"; }
 
 	//
+	$loop = 0;
 	$sql_0 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT 0,".$limit." ";
 	
 	if ($result_0 = mysqli_query($dbmysqli,$sql_0))
 	{
 	while ($obj = mysqli_fetch_object($result_0)){
 	{
-	
+	$loop = $loop +1;
 	$day_desc = date("l", $obj->timestamp);
 	$day_desc = str_replace("Monday", "Montag", $day_desc);
 	$day_desc = str_replace("Tuesday", "Dienstag", $day_desc);
@@ -127,6 +128,29 @@
 	
 	}
 	}
+	}
+	
+	$show_more_tab = "";
+	
+	if(!isset($page) or $page == ""){ $page = ""; }
+	
+	if($page == ""){ $page = 104; } else { $page = $page + 104; }
+	
+	$limit = $limit + $page;
+	
+	if($textmode != "1"){ $col_style= "col-sm-6 col-md-4 col-lg-4 mb-4"; } else { $col_style = "col-sm-4 col-md-2 col-lg-3 mb-4"; }
+	
+	if($loop == 104)
+	{
+	$show_more_tab = '
+	<div id="show_more_tab" class="'.$col_style.'">
+		<div class="card h-100" style="min-height:285px;">
+		  <div class="card-body" style="background-color: #ccc;">
+			<button class="btn btn-default btn-block btn-full" onclick="show_more(\''.$page.'\')">mehr anzeigen</button>
+		  </div>
+		</div>
+	  </div>
+	';
 	}
 	
 	// nav bar active
@@ -247,7 +271,7 @@
       </div>
       <!-- row -->
       <div class="spacer_10"></div>
-      <div class="row"> <?php echo $content_items; ?> </div>
+      <div id="content_items" class="row"> <?php echo $content_items.$show_more_tab; ?> </div>
       <!-- /.row -->
     </div>
     <!-- /.col-lg-9 -->
@@ -293,7 +317,7 @@
   
   $("#chevron").html("<i class=\"fa fa-chevron-up fa-2x\" style=\"color:#1F3169; cursor:pointer;\" title=\"Resultat ausblenden\" onclick=\"close_search_result()\"></i>");
   $("#chevron").fadeIn(1000);
-  $.post("search",
+  $.post("search.php",
   {
   term: term,
   category: category
@@ -331,6 +355,25 @@
   } else { 
   window.location.href='./?kategorie='+kategorie+''+"&textmode=0";
   }
+  }
+  
+  // browse
+  function show_more(page,limit){
+  var kategorie = '<?php echo $kategorie; ?>';
+  var textmode = '<?php echo $textmode; ?>';
+  $("#show_more_tab").fadeOut(500);
+  setTimeout(function() {
+  $("#show_more_tab").attr({ id:"" });
+  $.post("browse.php",
+  {
+  kategorie: kategorie,
+  textmode: textmode,
+  page: page
+  },
+  function(data){
+  $("#content_items").append(data);
+  });
+  }, 500);
   }
   </script>
 </body>
