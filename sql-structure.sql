@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 14. Juli 2019 um 14:56
--- Server Version: 5.1.73
--- PHP-Version: 5.3.2-1ubuntu4.30
+-- Erstellungszeit: 21. Juli 2019 um 15:38
+-- Server Version: 5.5.60
+-- PHP-Version: 5.4.45-0+deb7u14
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -25,9 +25,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Tabellenstruktur für Tabelle `diestandard`
 --
 
+DROP TABLE IF EXISTS `diestandard`;
 CREATE TABLE IF NOT EXISTS `diestandard` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -37,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `diestandard` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,9 +51,15 @@ CREATE TABLE IF NOT EXISTS `diestandard` (
 -- Tabellenstruktur für Tabelle `diskurs`
 --
 
+DROP TABLE IF EXISTS `diskurs`;
 CREATE TABLE IF NOT EXISTS `diskurs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -57,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `diskurs` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -65,9 +77,15 @@ CREATE TABLE IF NOT EXISTS `diskurs` (
 -- Tabellenstruktur für Tabelle `etat`
 --
 
+DROP TABLE IF EXISTS `etat`;
 CREATE TABLE IF NOT EXISTS `etat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -77,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `etat` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -85,9 +103,15 @@ CREATE TABLE IF NOT EXISTS `etat` (
 -- Tabellenstruktur für Tabelle `gesundheit`
 --
 
+DROP TABLE IF EXISTS `gesundheit`;
 CREATE TABLE IF NOT EXISTS `gesundheit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -97,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `gesundheit` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -105,9 +129,15 @@ CREATE TABLE IF NOT EXISTS `gesundheit` (
 -- Tabellenstruktur für Tabelle `immobilien`
 --
 
+DROP TABLE IF EXISTS `immobilien`;
 CREATE TABLE IF NOT EXISTS `immobilien` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -117,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `immobilien` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -125,9 +155,15 @@ CREATE TABLE IF NOT EXISTS `immobilien` (
 -- Tabellenstruktur für Tabelle `inland`
 --
 
+DROP TABLE IF EXISTS `inland`;
 CREATE TABLE IF NOT EXISTS `inland` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -137,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `inland` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -145,9 +181,15 @@ CREATE TABLE IF NOT EXISTS `inland` (
 -- Tabellenstruktur für Tabelle `international`
 --
 
+DROP TABLE IF EXISTS `international`;
 CREATE TABLE IF NOT EXISTS `international` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -157,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `international` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -165,9 +207,15 @@ CREATE TABLE IF NOT EXISTS `international` (
 -- Tabellenstruktur für Tabelle `karriere`
 --
 
+DROP TABLE IF EXISTS `karriere`;
 CREATE TABLE IF NOT EXISTS `karriere` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -177,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `karriere` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -185,9 +233,15 @@ CREATE TABLE IF NOT EXISTS `karriere` (
 -- Tabellenstruktur für Tabelle `kultur`
 --
 
+DROP TABLE IF EXISTS `kultur`;
 CREATE TABLE IF NOT EXISTS `kultur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -197,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `kultur` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -205,9 +259,15 @@ CREATE TABLE IF NOT EXISTS `kultur` (
 -- Tabellenstruktur für Tabelle `lifestyle`
 --
 
+DROP TABLE IF EXISTS `lifestyle`;
 CREATE TABLE IF NOT EXISTS `lifestyle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -217,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `lifestyle` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -225,9 +285,15 @@ CREATE TABLE IF NOT EXISTS `lifestyle` (
 -- Tabellenstruktur für Tabelle `meinung`
 --
 
+DROP TABLE IF EXISTS `meinung`;
 CREATE TABLE IF NOT EXISTS `meinung` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -245,9 +311,15 @@ CREATE TABLE IF NOT EXISTS `meinung` (
 -- Tabellenstruktur für Tabelle `panorama`
 --
 
+DROP TABLE IF EXISTS `panorama`;
 CREATE TABLE IF NOT EXISTS `panorama` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -257,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `panorama` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -265,9 +337,15 @@ CREATE TABLE IF NOT EXISTS `panorama` (
 -- Tabellenstruktur für Tabelle `reisen`
 --
 
+DROP TABLE IF EXISTS `reisen`;
 CREATE TABLE IF NOT EXISTS `reisen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -285,9 +363,15 @@ CREATE TABLE IF NOT EXISTS `reisen` (
 -- Tabellenstruktur für Tabelle `sport`
 --
 
+DROP TABLE IF EXISTS `sport`;
 CREATE TABLE IF NOT EXISTS `sport` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -297,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `sport` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -305,9 +389,15 @@ CREATE TABLE IF NOT EXISTS `sport` (
 -- Tabellenstruktur für Tabelle `top_news`
 --
 
+DROP TABLE IF EXISTS `top_news`;
 CREATE TABLE IF NOT EXISTS `top_news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -317,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `top_news` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -325,9 +415,15 @@ CREATE TABLE IF NOT EXISTS `top_news` (
 -- Tabellenstruktur für Tabelle `web`
 --
 
+DROP TABLE IF EXISTS `web`;
 CREATE TABLE IF NOT EXISTS `web` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -337,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `web` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -345,9 +441,15 @@ CREATE TABLE IF NOT EXISTS `web` (
 -- Tabellenstruktur für Tabelle `wirtschaft`
 --
 
+DROP TABLE IF EXISTS `wirtschaft`;
 CREATE TABLE IF NOT EXISTS `wirtschaft` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -357,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `wirtschaft` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -365,9 +467,15 @@ CREATE TABLE IF NOT EXISTS `wirtschaft` (
 -- Tabellenstruktur für Tabelle `wissenschaft`
 --
 
+DROP TABLE IF EXISTS `wissenschaft`;
 CREATE TABLE IF NOT EXISTS `wissenschaft` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(255) NOT NULL,
+  `subcat_1` varchar(255) NOT NULL,
+  `subcat_2` varchar(255) NOT NULL,
+  `subcat_3` varchar(255) NOT NULL,
+  `subcat_4` varchar(255) NOT NULL,
+  `subcat_5` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -377,4 +485,4 @@ CREATE TABLE IF NOT EXISTS `wissenschaft` (
   `timestamp` int(11) NOT NULL,
   `news_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
