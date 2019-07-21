@@ -34,12 +34,25 @@
 	for ($i = 0; $i <= $i; $i++) {
 	
 	if(!isset($xml->channel->item[$i]->title) or $xml->channel->item[$i]->title == ""){ break; }
-
+	
 	$category = trim($xml->channel->item[$i]->category);
 	$title = trim($xml->channel->item[$i]->title);
 	$description = trim($xml->channel->item[$i]->description);
 	$link = $xml->channel->item[$i]->link;
 	$pubdate = $xml->channel->item[$i]->pubDate;
+	
+	// sub category
+	if(!isset($xml->channel->item[$i]->category[1]) or $xml->channel->item[$i]->category[1] == ""){ $xml->channel->item[$i]->category[1] = ""; }
+	if(!isset($xml->channel->item[$i]->category[2]) or $xml->channel->item[$i]->category[2] == ""){ $xml->channel->item[$i]->category[2] = ""; }
+	if(!isset($xml->channel->item[$i]->category[4]) or $xml->channel->item[$i]->category[3] == ""){ $xml->channel->item[$i]->category[3] = ""; }
+	if(!isset($xml->channel->item[$i]->category[4]) or $xml->channel->item[$i]->category[4] == ""){ $xml->channel->item[$i]->category[4] = ""; }
+	if(!isset($xml->channel->item[$i]->category[5]) or $xml->channel->item[$i]->category[5] == ""){ $xml->channel->item[$i]->category[5] = ""; }
+	
+	$subcat_1 = $xml->channel->item[$i]->category[1];
+	$subcat_2 = $xml->channel->item[$i]->category[2];
+	$subcat_3 = $xml->channel->item[$i]->category[3];
+	$subcat_4 = $xml->channel->item[$i]->category[4];
+	$subcat_5 = $xml->channel->item[$i]->category[5];
 	
 	// image
 	preg_match_all("#src=\"(.*?)\"#si", $description, $match_image);
@@ -70,6 +83,11 @@
 	mysqli_query($dbmysqli, "INSERT INTO `".$rubric_desc."` 
 	(
 	`category`, 
+	`subcat_1`, 
+	`subcat_2`, 
+	`subcat_3`, 
+	`subcat_4`, 
+	`subcat_5`, 
 	`title`, 
 	`description`, 
 	`image`, 
@@ -82,6 +100,11 @@
 	VALUES 
 	(
 	'".$category."', 
+	'".$subcat_1."', 
+	'".$subcat_2."', 
+	'".$subcat_3."', 
+	'".$subcat_4."', 
+	'".$subcat_5."', 
 	'".$title."', 
 	'".$description."', 
 	'".$image."', 
