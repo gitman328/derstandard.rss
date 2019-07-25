@@ -22,6 +22,32 @@ for ($i = 0; $i <= 20; $i++)
 
 Das Framework ist ausschließlich für den privaten Eigenbedarf gedacht, da eine Weiterverwendung und Reproduktion der Inhalte über den persönlichen Gebrauch hinaus nicht gestattet ist.
 
+# Update vom 25.08.2019
+
+Die Desktop Ansicht wird nun breiter dargestellt und auf der rechten Seite wurde ein Wettertab hinzugefügt.
+
+Dort wird das aktuelle Wetter und die Prognose der nächsten Tage angezeigt.
+
+verwendet dafür wird der XML Feed von accuweather.com.
+
+Um das Wetter einer Stadt anzuzeigen, wird die jeweilige cityId benötigt.
+
+Die bekommt man wie folgt raus:
+
+1. Die Adresse https://www.accuweather.com/en/at/ im Browser aufrufen
+2. In das Suchfeld den Ort eintragen
+3. Den gewünschten Ort anklicken
+4. In der Adressleiste des Browser die Zahl am Ende der Url rauskopieren ( zB. für Wien, Innere Stadt: https://www.accuweather.com/de/at/innere-stadt/951479/weather-forecast/951479 )
+5. Die cityId lautet: 951479
+
+Nun in der Anwendung am Ende des Wettertabs auf das 'Einstellungen Symbol' klicken.
+Im Feld 'ID des Ortes' die Zahl eintragen, und danach speichern klicken.
+
+Nach dem aktualisieren der Seite werden die Wetterinformationen des Ortes angezeigt.
+
+Um die Daten regelmässig abzufragen ist es notwendig einen Cron Job zu erstellen der zB. alle 10 Minuten die Datei accuweather.php im Ordner /parser aufruft.
+
+
 #
 
 ![Screenshot](screenshot1.png)
@@ -29,3 +55,7 @@ Das Framework ist ausschließlich für den privaten Eigenbedarf gedacht, da eine
 ![Screenshot](screenshot2.png)
 
 ![Screenshot](screenshot3.png)
+
+![Screenshot](screenshot4.png)
+
+![Screenshot](screenshot5.png)
