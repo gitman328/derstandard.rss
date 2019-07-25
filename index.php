@@ -2,12 +2,21 @@
 //
 	include("parser/config.php");
 	
-	if(!isset($_REQUEST['kategorie']) or $_REQUEST['kategorie'] == ""){ $_REQUEST['kategorie'] = ""; }
-	$kategorie = $_REQUEST['kategorie'];
+	if(!isset($_REQUEST["kategorie"]) or $_REQUEST["kategorie"] == ""){ $_REQUEST['kategorie'] = ""; }
+	$kategorie = $_REQUEST["kategorie"];
 	
-	if(!isset($_REQUEST['textmode']) or $_REQUEST['textmode'] == ""){ $_REQUEST['textmode'] = ""; }
-	$textmode = $_REQUEST['textmode'];
-
+	if(!isset($_REQUEST["textmode"]) or $_REQUEST["textmode"] == ""){ $_REQUEST["textmode"] = ""; }
+	$textmode = $_REQUEST["textmode"];
+	
+	// settings
+	$sql_0 = mysqli_query($dbmysqli, "SELECT * FROM `settings` WHERE `id` = '1' ");
+	$result_0 = mysqli_fetch_assoc($sql_0);
+	$show_cw = $result_0["aw_show_cw"];
+	$show_fcw = $result_0["aw_show_fcw"];
+	$show_startpage = $result_0["aw_show_startpage"];
+	$fc_days = $result_0["aw_fc_days"];
+	$city_id = $result_0["aw_city_id"];
+	
 	$rubric_desc_sql = strtolower($kategorie);
 
 	$limit = "104";
@@ -35,21 +44,21 @@
 
 	//
 	$loop = 0;
-	$sql_0 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT 0,".$limit." ";
+	$sql_1 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT 0,".$limit." ";
 	
-	if ($result_0 = mysqli_query($dbmysqli,$sql_0))
+	if ($result_1 = mysqli_query($dbmysqli,$sql_1))
 	{
-	while ($obj = mysqli_fetch_object($result_0)){
+	while ($obj = mysqli_fetch_object($result_1)){
 	{
 	$loop = $loop +1;
 	$day_desc = date("l", $obj->timestamp);
-	$day_desc = str_replace("Monday", "Montag", $day_desc);
-	$day_desc = str_replace("Tuesday", "Dienstag", $day_desc);
-	$day_desc = str_replace("Wednesday", "Mittwoch", $day_desc);
-	$day_desc = str_replace("Thursday", "Donnerstag", $day_desc);
-	$day_desc = str_replace("Friday", "Freitag", $day_desc);
-	$day_desc = str_replace("Saturday", "Samstag", $day_desc);
-	$day_desc = str_replace("Sunday", "Sonntag", $day_desc);
+	$day_desc = str_replace("Monday", "Mo", $day_desc);
+	$day_desc = str_replace("Tuesday", "Di", $day_desc);
+	$day_desc = str_replace("Wednesday", "Mi", $day_desc);
+	$day_desc = str_replace("Thursday", "Do", $day_desc);
+	$day_desc = str_replace("Friday", "Fr", $day_desc);
+	$day_desc = str_replace("Saturday", "Sa", $day_desc);
+	$day_desc = str_replace("Sunday", "So", $day_desc);
 	
 	$card_bg_color = "#FFFFFF";
 	
@@ -107,10 +116,9 @@
 	if($textmode == "1")
 	{
 	$content_items = $content_items.'
-	<div class="col-sm-4 col-md-2 col-lg-3 mb-4">
+	<div class="col-sm-4 col-md-3 col-lg-3 mb-4">
 		<div id="'.$obj->id.'" class="card h-100">
 		<div class="spacer_10"></div>
-		  <a href="'.$obj->link.'" target="_blank">
 		  <div class="card-body-text">
 			<span class="card-title">
 			  <strong><a href="'.$obj->link.'" target="_blank">'.$obj->title.'</a></strong>
@@ -119,7 +127,7 @@
 			<div style="font-size:12px;">'.$obj->description.'</div>
 		  </div>
 		  <div class="card-footer-text" style="background-color:'.$card_bg_color.';">
-			<span class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</span>
+			<span class="text-muted">'.$cat_link.'<br>'.$day_desc.', '.$obj->date.'</span>
 		  </div>
 		</div>
 	  </div>
@@ -171,6 +179,172 @@
 	if(preg_match("/\bwissenschaft\b/i", $kategorie)){ $active14 = "active"; } else { $active14 = ""; }
 	if(preg_match("/\bdiestandard\b/i", $kategorie)){ $active15 = "active"; } else { $active15 = ""; }
 	
+	// current weather list
+	$sql_2 = mysqli_query($dbmysqli, "SELECT * FROM `aw_current` ORDER BY `timestamp` DESC");
+	$result_2 = mysqli_fetch_assoc($sql_2);
+	$temp_u = $result_2['temp_u'];
+	$dist_u = $result_2['dist_u'];
+	$speed_u = $result_2['speed_u'];
+	$pres_u = $result_2['pres_u'];
+	$prec_u = $result_2['prec_u'];
+	$city = $result_2['city'];
+	$country = $result_2['country'];
+	$area = $result_2['area'];
+	$city_id = $result_2['city_id'];
+	$pressure = $result_2['pressure'];
+	$temperature = $result_2['temperature'];
+	$humidity = $result_2['humidity'];
+	$weathertext = $result_2['weathertext'];
+	$weathericon = $result_2['weathericon'];
+	$windspeed = $result_2['windspeed'];
+	$winddirection = $result_2['winddirection'];
+	$cloudcover = $result_2['cloudcover'];
+	$timestamp = $result_2['timestamp'];
+	
+	$current_weather_list = '
+	<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12 mb-12">
+	<div id="current_weather" class="card" style="background-color:#1F3169;">
+	  <div class="spacer_5"></div>
+	  <div class="card-body-text">
+		<div class="row">
+		  <div class="col-lg-6"> 
+		  <span class="card-title">
+			<div class="spacer_10"></div>
+			<h4 style="color:#fff;">'.$temperature.'&deg; '.$temp_u.'</h4>			
+			</span> 
+			</div>
+		  <div class="col-lg-6"> <img src="images/weather-icons/large/'.$weathericon.'.png"> 
+		  </div>
+		  <!-- col-lg-6 -->
+		</div>
+		<!-- row -->
+		<div class="row">
+		<div class="col-lg-12" style="padding-left: 15px;">
+		<span class="text-muted"> <small style="color:#ccc;">'.$weathertext.' ('.date("H:i", $timestamp).')</small> </span>
+		</div>
+		</div>
+		<span class="card-title"> <strong style="color:#fff;">'.$city.', '.$area.'</strong> </span>
+		<hr>
+		<small style="color:#ccc;">Luftfeuchte: '.$humidity.'%<br>
+		Luftdruck: '.$pressure.' '.$pres_u.'<br>
+		Wind: '.$windspeed.' '.$speed_u.'<br>
+		Windrichtung: '.$winddirection.'<br>
+		Bewölkung: '.$cloudcover.'<br>
+		</small> </div>
+	  <div class="card-footer-text"> <span class="text-muted" style="float:right;">
+	  <i class="fa fa-cog" style="cursor:pointer" onclick="weather_settings();" title="Wetteranzeige Einstellungen"></i> 
+	  </span> 
+	  </div>
+	</div>
+	</div>
+	<!-- col -->
+	</div>
+	<!-- row -->
+	';
+	
+	if($show_startpage == 1 and $kategorie != "")
+	{
+	$current_weather_list = '
+	<span class="text-muted" style="float:right;"> 
+	<i class="fa fa-cog" style="cursor:pointer" onclick="weather_settings();" title="Wetteranzeige Einstellungen"></i>
+	</span>';
+	}
+	
+	if($show_cw == 0)
+	{ 
+	$current_weather_list = '
+	<span class="text-muted" style="float:right;"> 
+	<i class="fa fa-cog" style="cursor:pointer" onclick="weather_settings();" title="Wetteranzeige Einstellungen"></i>
+	</span>'; 
+	}
+	
+	//
+	// forecast weather list
+	$fc_days_total = $fc_days + 1;
+	
+	$sql_3 = "SELECT * FROM `aw_forecast` WHERE `id` BETWEEN '1' AND '".$fc_days_total."' ";
+	
+	if ($result_3 = mysqli_query($dbmysqli,$sql_3))
+	{
+	while ($obj = mysqli_fetch_object($result_3)){
+	{
+	
+	$day_name = $obj->day_name;
+	$sunrise = $obj->sunrise;
+	$sunset = $obj->sunset;
+	$shorttext = $obj->shorttext;
+	$weather_icon = $obj->weather_icon;
+	$hightemperature_d = $obj->hightemperature_d;
+	$lowtemperature_d = $obj->lowtemperature_d;
+	$winddirection_d = $obj->winddirection_d;
+	$windspeed_d = $obj->windspeed_d;
+	$rain_d = $obj->rain_d;
+	$snow_d = $obj->snow_d;
+	$ice_d = $obj->ice_d;
+	$winddirection_n = $obj->winddirection_n;
+	$windspeed_n = $obj->windspeed_n;
+	$rain_n = $obj->rain_n;
+	$snow_n = $obj->snow_n;
+	$ice_n = $obj->ice_n;
+	$timestamp = $obj->timestamp;
+	
+	if($obj->id == 1){ $day_name = "Heute"; $show_lowtemperature = "display:none;"; $spacer = ""; } else { $show_lowtemperature = ""; $spacer = "<br>"; }
+	
+	if(!isset($weathercard_body) or $weathercard_body == ""){ $weathercard_body = ""; }
+	
+	$weathercard_body = $weathercard_body.'
+	<div class="forecast-tab">
+	<div class="row">
+	<div class="col-lg-6">
+	<div class="forecast-link">
+	<span onclick="show_forecast_day(\''.$obj->id.'\')" style="cursor:pointer;">
+	<small>'.$day_name.'</small>
+	</span>
+	</div>
+	</div><!-- col-lg-6 -->
+	<div class="col-lg-6"><small>'.$hightemperature_d.'&deg; '.$temp_u.'</small>
+	<img src="images/weather-icons/small/'.$weather_icon.'.png">
+	</div>
+	<!-- col-lg-6 -->
+	</div>
+	<!-- row -->
+	<div id="forecast_day_'.$obj->id.'" style="display:none;">
+	<div class="spacer_5"></div>
+	<small style="color:#fff;">'.$shorttext.'</small>
+	<div class="spacer_5"></div>
+	<small style="color:#ccc;">
+	<span style="'.$show_lowtemperature.'">Tiefsttemperatur: '.$lowtemperature_d.'&deg; '.$temp_u.'</span>'.$spacer.'
+	Wind: '.$windspeed_d.' '.$speed_u.'<br>
+	Sonnenaufgang: '.$sunrise.' Uhr<br>
+	Sonnenuntergang: '.$sunset.' Uhr<br>
+	</small>
+	</div>
+	</div><!-- forecast-tab -->
+	';
+	
+	}
+	}
+	}
+	
+	$weathercard_header = '
+	<div class="spacer_10"></div>
+	<div class="card" style="background-color:#1F3169;">
+	<div align="center">
+	<div class="spacer_10"></div>
+	<u style="color:#fff;">'.$fc_days.'-Tage Prognose</u>
+	<div class="spacer_20"></div>
+	</div>
+	';
+	
+	$weathercard_footer = '</div><!-- card header -->';
+	
+	$forecast_weather_list = $weathercard_header.$weathercard_body.$weathercard_footer;
+	
+	if($show_startpage == 1 and $kategorie != ""){ $forecast_weather_list = ""; }
+	
+	if($show_fcw == 0){ $forecast_weather_list = ""; }
+		
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -225,14 +399,29 @@
   <div class="row">
     <div class="col-lg-2">
       <div class="spacer_20"></div>
-      <div class="list-group nav-bar"> <a href="./?kategorie=<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active0; ?>">Aktuell</a> <a href="./?kategorie=Diskurs<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active1; ?>">Diskurs</a> <a href="./?kategorie=Etat<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active2; ?>">Etat</a> <a href="./?kategorie=Gesundheit<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active3; ?>">Gesundheit</a> <a href="./?kategorie=Immobilien<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active4; ?>">Immobilien</a> <a href="./?kategorie=Inland<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active5; ?>">Inland</a> <a href="./?kategorie=International<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active6; ?>">International</a> <a href="./?kategorie=Karriere<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active7; ?>">Karriere</a> <a href="./?kategorie=Kultur<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active8; ?>">Kultur</a> <a href="./?kategorie=Lifestyle<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active9; ?>">Lifestyle</a>
+      <div class="list-group nav-bar"> 
+      <a href="./?kategorie=<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active0; ?>">Aktuell</a> 
+      <a href="./?kategorie=Diskurs<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active1; ?>">Diskurs</a> 
+      <a href="./?kategorie=Etat<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active2; ?>">Etat</a> 
+      <a href="./?kategorie=Gesundheit<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active3; ?>">Gesundheit</a> 
+      <a href="./?kategorie=Immobilien<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active4; ?>">Immobilien</a> 
+      <a href="./?kategorie=Inland<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active5; ?>">Inland</a> 
+      <a href="./?kategorie=International<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active6; ?>">International</a> 
+      <a href="./?kategorie=Karriere<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active7; ?>">Karriere</a> 
+      <a href="./?kategorie=Kultur<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active8; ?>">Kultur</a> 
+      <a href="./?kategorie=Lifestyle<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active9; ?>">Lifestyle</a>
         <!--<a href="./?kategorie=Meinung" class="list-group-item">Meinung</a>-->
         <a href="./?kategorie=Panorama<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active10; ?>">Panorama</a>
         <!--<a href="./?kategorie=Reisen" class="list-group-item">Reisen</a>-->
-        <a href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active11; ?>">Sport</a> <a href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active12; ?>">Web</a> <a href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active13; ?>">Wirtschaft</a> <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active14; ?>">Wissenschaft</a> <a href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active15; ?>">dieStandard</a> </div>
+        <a href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active11; ?>">Sport</a> 
+        <a href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active12; ?>">Web</a> 
+        <a href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active13; ?>">Wirtschaft</a> 
+        <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active14; ?>">Wissenschaft</a> 
+        <a href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active15; ?>">dieStandard</a> 
+        </div>
     </div>
     <!-- /.col-lg-2 -->
-    <div class="col-lg-10">
+    <div class="col-lg-8">
       <div class="spacer_30"></div>
       <div class="row">
         <div class="col-lg-12">
@@ -267,14 +456,20 @@
           </div>
           <hr>
         </div>
-        <!-- col-12 -->
+        <!-- /.col-lg-12 -->
       </div>
       <!-- row -->
       <div class="spacer_10"></div>
       <div id="content_items" class="row"> <?php echo $content_items.$show_more_tab; ?> </div>
       <!-- /.row -->
     </div>
-    <!-- /.col-lg-9 -->
+    <!-- /.col-lg-10 -->
+    <div class="col-lg-2">
+    <div class="spacer_20"></div>
+	<?php echo $current_weather_list; ?>
+    <?php echo $forecast_weather_list; ?>
+    <div class="spacer_10"></div>
+    </div>
   </div>
   <!-- /.row -->
 </div>
@@ -287,6 +482,48 @@
   <!-- /.container -->
 </footer>
 <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top"> <i class="fa fa-angle-up"></i> </a>
+<!-- weather settings modal -->
+<div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="weatherModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">Einstellungen für die Wetteranzeige
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <label for="show_cw" class="control-label">
+      <input type="checkbox" value="" id="show_cw" <?php if($show_cw == "1"){ echo "checked"; } ?>>
+      Aktuelles Wetter anzeigen </label>
+      <br>
+      <label for="show_fcw" class="control-label">
+      <input type="checkbox" value="" id="show_fcw" <?php if($show_fcw == "1"){ echo "checked"; } ?>>
+      Wetterprognose anzeigen </label>
+      <br>
+      <label for="show_startpage" class="control-label">
+      <input name="" type="checkbox" value="" id="show_startpage" <?php if($show_startpage == "1"){ echo "checked"; } ?>>
+      Anzeige nur auf Startseite (Aktuelle Nachrichten) </label>
+      <br>
+      <label for="fc_days" class="control-label">
+      <select id="fc_days">
+        <option value="3" <?php if($fc_days == "3"){ echo "selected"; }?>>&nbsp;3&nbsp;</option>
+        <option value="5" <?php if($fc_days == "5"){ echo "selected"; }?>>&nbsp;5&nbsp;</option>
+        <option value="7" <?php if($fc_days == "7"){ echo "selected"; }?>>&nbsp;7&nbsp;</option>
+      </select>
+      Anzahl der angezeigten Tage </label>
+      <br>
+      <label for="city_id" class="control-label">ID des Ortes:</label>
+      <input id="city_id" type="text" class="input-group-field" style="width:50%;" value="<?php if(!isset($city_id) or $city_id == ""){ $city_id = ""; } echo $city_id; ?>">
+      <div class="spacer_5"></div>
+      <div id="weather_status" style="display:none;"><img src="images/loading.gif"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="save_weather_settings();">Speichern</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- weather settings modal -->
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -375,6 +612,44 @@
   });
   }, 500);
   }
+  
+  function show_forecast_day(id){
+  $("#forecast_day_"+id).toggle(250);
+  }
+  
+  function weather_settings(){
+  $('#weatherModal').modal('toggle');
+  }
+  
+  // weather settings
+  function save_weather_settings(){
+  
+  if($("#show_cw").is(':checked')){ var show_cw = '1' } else { var show_cw = '0'; }
+  if($("#show_fcw").is(':checked')){ var show_fcw = '1' } else { var show_fcw = '0'; }
+  if($("#show_startpage").is(':checked')){ var show_startpage = '1' } else { var show_startpage = '0'; }
+  
+  var fc_days = $("#fc_days").val();
+  var city_id = $("#city_id").val();
+  if($.isNumeric(city_id)){ } else { $("#weather_status").fadeOut(); return; }
+  if(city_id == ''){ $("#weather_status").fadeOut(); return; }
+  
+  $("#weather_status").html("<img src=\"images/loading.gif\" width=\"16\" height=\"11\">");
+  $("#weather_status").fadeIn();
+  
+  $.post("inc/save_settings.php",
+  {
+  show_cw: show_cw,
+  show_fcw: show_fcw,
+  show_startpage: show_startpage,
+  fc_days: fc_days,
+  city_id: city_id
+  },
+  function(data){
+  
+  $("#weather_status").html('<small><b>'+data+'</b></small>');
+  });
+  }
+  
   </script>
 </body>
 </html>
