@@ -22,7 +22,11 @@ for ($i = 0; $i <= 20; $i++)
 
 Das Framework ist ausschließlich für den privaten Eigenbedarf gedacht, da eine Weiterverwendung und Reproduktion der Inhalte über den persönlichen Gebrauch hinaus nicht gestattet ist.
 
-# Update vom 25.08.2019
+# Update vom 01.08.2019
+
+Auflistung der Nachrichten nach Unterkategorie hinzugefügt
+
+# Update vom 25.07.2019
 
 Die Desktop Ansicht wird nun breiter dargestellt und auf der rechten Seite wurde ein Wettertab hinzugefügt.
 
