@@ -71,10 +71,20 @@
 	$loop = $loop + 1;
 	if(!isset($result_list) or $result_list == ""){ $result_list = ""; }
 	
+	if($obj->subcat_1 != ""){ $data1 = ' | <a href="?kategorie='.$obj->category.'&subcat='.$obj->subcat_1.'">'.$obj->subcat_1.'</a>'; } else { $data1 = ""; }
+	if($obj->subcat_2 != ""){ $data2 = ' | <a href="?kategorie='.$obj->category.'&subcat='.$obj->subcat_2.'">'.$obj->subcat_2.'</a>'; } else { $data2 = ""; }
+	if($obj->subcat_3 != ""){ $data3 = ' | <a href="?kategorie='.$obj->category.'&subcat='.$obj->subcat_3.'">'.$obj->subcat_3.'</a>'; } else { $data3 = ""; }
+	if($obj->subcat_4 != ""){ $data4 = ' | <a href="?kategorie='.$obj->category.'&subcat='.$obj->subcat_4.'">'.$obj->subcat_4.'</a>'; } else { $data4 = ""; }
+	
+	$subcats = $data1.$data2.$data3.$data4;
+	
 	$result_list = $result_list.'
 	<div style="background-color:#FFFFFF; padding-left: 5px; border: thin solid #F0F0F0;">
 	<div class="spacer_3"></div>
-	<div style="font-size: 15px;">'.$obj->date.' | <strong><a href="'.$obj->link.'" target="_blank">'.$obj->title.'</a></strong> | <small class="text-muted">'.$obj->category.'</small></strong><br>'.$obj->description.'</div>
+	<div style="font-size: 15px;">'.$obj->date.' | <strong>
+	<a href="'.$obj->link.'" target="_blank">'.$obj->title.'</a></strong> | <small class="text-muted">
+	<a href="?kategorie='.$obj->category.'">'.$obj->category.'</a>'.$subcats.'
+	</small></strong><br>'.$obj->description.'</div>
 	<div class="spacer_5"></div>
 	</div>
 	<div class="spacer_20"></div>

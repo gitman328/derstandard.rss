@@ -8,6 +8,9 @@
 	if(!isset($_REQUEST["textmode"]) or $_REQUEST["textmode"] == ""){ $_REQUEST["textmode"] = ""; }
 	$textmode = $_REQUEST["textmode"];
 	
+	if(!isset($_REQUEST["subcat"]) or $_REQUEST["subcat"] == ""){ $_REQUEST["subcat"] = ""; }
+	$subcat = $_REQUEST["subcat"];
+	
 	// settings
 	$sql_0 = mysqli_query($dbmysqli, "SELECT * FROM `settings` WHERE `id` = '1' ");
 	$result_0 = mysqli_fetch_assoc($sql_0);
@@ -45,6 +48,15 @@
 	//
 	$loop = 0;
 	$sql_1 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT 0,".$limit." ";
+	
+	if($subcat != "")
+	{ 
+	$sql_1 = "SELECT * FROM `".$rubric_desc_sql."` WHERE 
+	`subcat_1` LIKE '".$subcat."' OR
+	`subcat_2` LIKE '".$subcat."' OR
+	`subcat_3` LIKE '".$subcat."' OR
+	`subcat_4` LIKE '".$subcat."'
+	ORDER BY `timestamp` DESC LIMIT 0,".$limit.""; }
 	
 	if ($result_1 = mysqli_query($dbmysqli,$sql_1))
 	{
@@ -89,6 +101,13 @@
 	$cat_link = "<strong><a href=\"./?kategorie=".$obj->category."\">".$obj->category."</a></strong>";
 	}
 	
+	if($obj->subcat_1 != ""){ $data1 = '<a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_1.'\'>'.$obj->subcat_1.'</a>'; } else { $data1 = ""; }
+	if($obj->subcat_2 != ""){ $data2 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_2.'\'>'.$obj->subcat_2.'</a>'; } else { $data2 = ""; }
+	if($obj->subcat_3 != ""){ $data3 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_3.'\'>'.$obj->subcat_3.'</a>'; } else { $data3 = ""; }
+	if($obj->subcat_4 != ""){ $data4 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_4.'\'>'.$obj->subcat_4.'</a>'; } else { $data4 = ""; }
+	
+	$popup_content = $data1.$data2.$data3.$data4;
+	
 	if($textmode != "1")
 	{
 	$content_items = $content_items.'
@@ -107,6 +126,12 @@
 		  </div>
 		  <div class="card-footer" style="background-color:'.$card_bg_color.';">
 			<small class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</small>
+			<span style="float:right;">
+			<small>
+			<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" data-content="'.$popup_content.'">
+			<i title="Kategorie" style="cursor:pointer;" class="fa fa-list"></i></a>
+			</small>
+			</span>
 		  </div>
 		</div>
 	  </div>
@@ -127,7 +152,11 @@
 			<div style="font-size:12px;">'.$obj->description.'</div>
 		  </div>
 		  <div class="card-footer-text" style="background-color:'.$card_bg_color.';">
-			<span class="text-muted">'.$cat_link.'<br>'.$day_desc.', '.$obj->date.'</span>
+			<small class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</small>
+			<span style="float:right;">
+			<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" data-content="'.$popup_content.'">
+			<i title="Kategorie" style="cursor:pointer;" class="fa fa-list"></i></a>
+			</span>
 		  </div>
 		</div>
 	  </div>
@@ -529,6 +558,10 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
   
+  $(function () {
+  $('[data-toggle="popover"]').popover()
+  })
+
   // Scroll to top button appear
   $(document).scroll(function() {
     var scrollDistance = $(this).scrollTop();
