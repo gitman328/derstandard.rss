@@ -101,10 +101,10 @@
 	$cat_link = "<strong><a href=\"./?kategorie=".$obj->category."\">".$obj->category."</a></strong>";
 	}
 	
-	if($obj->subcat_1 != ""){ $data1 = '<a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_1.'\'>'.$obj->subcat_1.'</a>'; } else { $data1 = ""; }
-	if($obj->subcat_2 != ""){ $data2 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_2.'\'>'.$obj->subcat_2.'</a>'; } else { $data2 = ""; }
-	if($obj->subcat_3 != ""){ $data3 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_3.'\'>'.$obj->subcat_3.'</a>'; } else { $data3 = ""; }
-	if($obj->subcat_4 != ""){ $data4 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_4.'\'>'.$obj->subcat_4.'</a>'; } else { $data4 = ""; }
+	if($obj->subcat_1 != ""){ $data1 = '<a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_1.'&textmode='.$textmode.'\'>'.$obj->subcat_1.'</a>'; } else { $data1 = ""; }
+	if($obj->subcat_2 != ""){ $data2 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_2.'&textmode='.$textmode.'\'>'.$obj->subcat_2.'</a>'; } else { $data2 = ""; }
+	if($obj->subcat_3 != ""){ $data3 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_3.'&textmode='.$textmode.'\'>'.$obj->subcat_3.'</a>'; } else { $data3 = ""; }
+	if($obj->subcat_4 != ""){ $data4 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_4.'&textmode='.$textmode.'\'>'.$obj->subcat_4.'</a>'; } else { $data4 = ""; }
 	
 	$popup_content = $data1.$data2.$data3.$data4;
 	
@@ -152,7 +152,7 @@
 			<div style="font-size:12px;">'.$obj->description.'</div>
 		  </div>
 		  <div class="card-footer-text" style="background-color:'.$card_bg_color.';">
-			<small class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</small>
+			<span class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</span>
 			<span style="float:right;">
 			<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" data-content="'.$popup_content.'">
 			<i title="Kategorie" style="cursor:pointer;" class="fa fa-list"></i></a>
@@ -582,6 +582,7 @@
   function search_news(){
   var term = $("#term").val();
   var category = $("#search_category option:selected").val();
+  var textmode = '<?php echo $textmode; ?>';
   var n = term.length;
   if(term == '' || n <= 2){ return; }
   
@@ -590,7 +591,8 @@
   $.post("search.php",
   {
   term: term,
-  category: category
+  category: category,
+  textmode: textmode
   },
   function(data){
   $("#search_result").html(data);
