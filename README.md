@@ -58,8 +58,6 @@ Um die Daten regelmässig abzufragen ist es notwendig einen Cron Job zu erstelle
 
 ![Screenshot](screenshot2.png)
 
-![Screenshot](screenshot3.png)
-
 ![Screenshot](screenshot4.png)
 
 ![Screenshot](screenshot5.png)
