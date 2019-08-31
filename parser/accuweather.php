@@ -100,7 +100,7 @@
 	
 	for ($i = 0; $i <= $i; $i++) {
 	
-	if(!isset($xml->forecast->day[$i]->obsDate) or $xml->forecast->day[$i]->obsDate == ""){ break; }
+	if(!isset($xml->forecast->day[$i]->obsDate) or $xml->forecast->day[$i]->obsDate == ""){ $xml->forecast->day[$i]->obsDate = ""; break; }
 	
 	$obs_date = $xml->forecast->day[$i]->obsDate;
 	$day_name = $xml->forecast->day[$i]->dayName;
