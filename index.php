@@ -456,22 +456,27 @@
         <div class="col-lg-12">
           <div class="input-group">
             <select class="input-group-dropdown" style="width:150px;" id="search_category">
-              <option value="alle" selected>&nbsp;Alle Nachrichten</option>
-              <option value="diskurs">&nbsp;Diskurs</option>
-              <option value="etat">&nbsp;Etat</option>
-              <option value="gesundheit">&nbsp;Gesundheit</option>
-              <option value="immobilien">&nbsp;Immobilien</option>
-              <option value="inland">&nbsp;Inland</option>
-              <option value="international">&nbsp;International</option>
-              <option value="karriere">&nbsp;Karriere</option>
-              <option value="kultur">&nbsp;Kultur</option>
-              <option value="lifestyle">&nbsp;Lifestyle</option>
-              <option value="panorama">&nbsp;Panorama</option>
-              <option value="sport">&nbsp;Sport</option>
-              <option value="web">&nbsp;Web</option>
-              <option value="wirtschaft">&nbsp;Wirtschaft</option>
-              <option value="wissenschaft">&nbsp;Wissenschaft</option>
-              <option value="diestandard">&nbsp;diestandard</option>
+              <option value="alle" <?php if($kategorie == ''){ echo 'selected'; }?>>&nbsp;Alle Nachrichten</option>
+              <option value="diskurs" <?php if($kategorie == 'Diskurs'){ echo 'selected'; }?>>&nbsp;Diskurs</option>
+              <option value="etat"<?php if($kategorie == 'Etat'){ echo 'selected'; }?>>&nbsp;Etat</option>
+              <option value="gesundheit" <?php if($kategorie == 'Gesundheit'){ echo 'selected'; }?>>&nbsp;Gesundheit</option>
+              <option value="immobilien" <?php if($kategorie == 'Immobilien'){ echo 'selected'; }?>>&nbsp;Immobilien</option>
+              <option value="inland" <?php if($kategorie == 'Inland'){ echo 'selected'; }?>>&nbsp;Inland</option>
+              <option value="international" <?php if($kategorie == 'International'){ echo 'selected'; }?>>&nbsp;International</option>
+              <option value="karriere" <?php if($kategorie == 'Karriere'){ echo 'selected'; }?>>&nbsp;Karriere</option>
+              <option value="kultur" <?php if($kategorie == 'Kultur'){ echo 'selected'; }?>>&nbsp;Kultur</option>
+              <option value="lifestyle" <?php if($kategorie == 'Lifestyle'){ echo 'selected'; }?>>&nbsp;Lifestyle</option>
+              <option value="panorama" <?php if($kategorie == 'Panorama'){ echo 'selected'; }?>>&nbsp;Panorama</option>
+              <option value="sport" <?php if($kategorie == 'Sport'){ echo 'selected'; }?>>&nbsp;Sport</option>
+              <option value="web" <?php if($kategorie == 'Web'){ echo 'selected'; }?>>&nbsp;Web</option>
+              <option value="wirtschaft" <?php if($kategorie == 'Wirtschaft'){ echo 'selected'; }?>>&nbsp;Wirtschaft</option>
+              <option value="wissenschaft" <?php if($kategorie == 'Wissenschaft'){ echo 'selected'; }?>>&nbsp;Wissenschaft</option>
+              <option value="diestandard" <?php if($kategorie == 'Diestandard'){ echo 'selected'; }?>>&nbsp;diestandard</option>
+            </select>
+            <select class="input-group-dropdown" style="width:130px;" id="search_area">
+              <option value="alle" selected>&nbsp;Suchbereich</option>
+              <option value="titel">&nbsp;Titel</option>
+              <option value="beschreibung">&nbsp;Beschreibung</option>
             </select>
             <input class="input-group-field" id="term" type="text" style="width:350px" accept-charset=utf-8>
             <span class="input-group-append">
@@ -582,6 +587,7 @@
   function search_news(){
   var term = $("#term").val();
   var category = $("#search_category option:selected").val();
+  var searcharea = $("#search_area option:selected").val();
   var textmode = '<?php echo $textmode; ?>';
   var n = term.length;
   if(term == '' || n <= 2){ return; }
@@ -592,6 +598,7 @@
   {
   term: term,
   category: category,
+  searcharea: searcharea, 
   textmode: textmode
   },
   function(data){
