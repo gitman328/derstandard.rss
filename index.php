@@ -190,6 +190,35 @@
 	';
 	}
 	
+	// subcat menue
+	if($subcat != '')
+	{
+	$subcat_menue = "<span style=\"font-size: 11px;\">Kategorie:  
+	<a href=?kategorie=".$kategorie."&subcat=".$subcat."&textmode=".$textmode.">".$kategorie." - ".$subcat."</a></span>";
+	
+//	$sql_3 = "SELECT DISTINCT (subcat_2) FROM `".strtolower($kategorie)."` WHERE `category` = '".$kategorie."' ";
+//	if ($result_3 = mysqli_query($dbmysqli,$sql_3))
+//	{
+//	while ($obj = mysqli_fetch_object($result_3)){
+//	{
+//	if($subcat == $obj->subcat_2){ $selected = "selected=\"selected\""; } else { $selected = ''; }
+//	if(!isset($dropdown_list) or $dropdown_list == ""){ $dropdown_list = ""; }
+//	$dropdown_list = $dropdown_list."<option href='?kategorie=".$kategorie."&subcat=".$obj->subcat_2."' ".$selected.">".$obj->subcat_2."</option>
+//	"; 
+//	}
+//	}
+//	}
+//	
+//	$subcat_menue = '
+//	<select id="subcat" class="input-group-dropdown" onchange="window.location.href=this.options[this.selectedIndex].getAttribute(\'href\')">
+//	'.$dropdown_list.'
+//	</select>
+//	';
+	
+	} else { 
+	
+	$subcat_menue = ""; }
+	
 	// nav bar active
 	if($kategorie == ""){ $active0 = "active"; } else { $active0 = ""; }
 	if(preg_match("/\bdiskurs\b/i", $kategorie)){ $active1 = "active"; } else { $active1 = ""; }
@@ -288,7 +317,7 @@
 	</span>'; 
 	}
 	
-	//
+
 	// forecast weather list
 	$fc_days_total = $fc_days + 1;
 	
@@ -391,15 +420,30 @@
 </head>
 <body id="page-top">
 <!-- Navigation -->
+<div class="row">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container"> <div style="padding-left:15px;"><a class="navbar-brand" href="./"><?php if($kategorie == ""){ echo "Aktuell"; } else { echo $kategorie; } ?></a></div>
-    <div class="header-bar-content">
-      <div class="sp1">
-        <input id="view_mode" type="checkbox" onclick="change_view_mode();" <?php if($textmode == '1'){ echo 'checked'; }?>>
-      </div>
-      <div class="sp2"> Text Modus </div>
-      <div style="clear:both"></div>
-    </div>
+<div class="col-sm-12 col-lg-3 col-md-4" style="font-size:12px; color:#FFF;">
+  <a class="navbar-brand" href="./"><?php if($kategorie == ""){ echo "Aktuell"; } else { echo $kategorie; } ?></a>
+  <label><input id="view_mode" type="checkbox" onclick="change_view_mode();" <?php if($textmode == '1'){ echo 'checked'; }?>> Text Modus</label>
+  </div><!-- col -->
+    <div class="col-md-9 header-btn-group">
+    <a href="./?kategorie=<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Aktuell</button></a>
+    <a href="./?kategorie=Diskurs<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Diskurs</button></a>
+    <a href="./?kategorie=Etat<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Etat</button></a>
+    <a href="./?kategorie=Gesundheit<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Gesundheit</button></a>
+    <a href="./?kategorie=Immobilien<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Immobilien</button></a>
+    <a href="./?kategorie=Inland<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Inland</button></a>
+    <a href="./?kategorie=International<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">International</button></a>
+    <a href="./?kategorie=Karriere<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Karriere</button></a>
+    <a href="./?kategorie=Kultur<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Kultur</button></a>
+    <a href="./?kategorie=Lifestyle<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Lifestyle</button></a>
+    <a href="./?kategorie=Panorama<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Panorama</button></a>
+    <a href="./?kategorie=Sport<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Sport</button></a>
+    <a href="./?kategorie=Web<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Web</button></a>
+    <a href="./?kategorie=Wirtschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Wirtschaft</button></a>
+    <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">Wissenschaft</button></a>
+    <a href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>"><button style="font-size:10px;">dieStandard</button></a>
+    </div><!-- col -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto header-bar">
@@ -420,9 +464,9 @@
         <li class="nav-item"> <a class="nav-link" href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">Wissenschaft</a> </li>
         <li class="nav-item"> <a class="nav-link" href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>">dieStandard</a> </li>
       </ul>
-    </div>
-  </div>
+	</div>
 </nav>
+</div><!-- row -->
 <!-- Page Content -->
 <div class="container">
   <div class="row">
@@ -448,6 +492,7 @@
         <a href="./?kategorie=Wissenschaft<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active14; ?>">Wissenschaft</a> 
         <a href="./?kategorie=dieStandard<?php if($textmode != ''){ echo '&textmode='.$textmode; }?>" class="list-group-item <?php echo $active15; ?>">dieStandard</a> 
         </div>
+        <div class="spacer_30"></div>
     </div>
     <!-- /.col-lg-2 -->
     <div class="col-lg-8">
@@ -455,7 +500,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="input-group">
-            <select class="input-group-dropdown" style="width:150px;" id="search_category">
+            <select class="input-group-dropdown" style="width:150px; margin:1px;" id="search_category">
               <option value="alle" <?php if($kategorie == ''){ echo 'selected'; }?>>&nbsp;Alle Nachrichten</option>
               <option value="diskurs" <?php if($kategorie == 'Diskurs'){ echo 'selected'; }?>>&nbsp;Diskurs</option>
               <option value="etat"<?php if($kategorie == 'Etat'){ echo 'selected'; }?>>&nbsp;Etat</option>
@@ -473,15 +518,15 @@
               <option value="wissenschaft" <?php if($kategorie == 'Wissenschaft'){ echo 'selected'; }?>>&nbsp;Wissenschaft</option>
               <option value="diestandard" <?php if($kategorie == 'Diestandard'){ echo 'selected'; }?>>&nbsp;diestandard</option>
             </select>
-            <select class="input-group-dropdown" style="width:130px;" id="search_area">
+            <select class="input-group-dropdown" style="width:130px; margin:1px;" id="search_area">
               <option value="alle" selected>&nbsp;Suchbereich</option>
               <option value="titel">&nbsp;Titel</option>
               <option value="beschreibung">&nbsp;Beschreibung</option>
             </select>
-            <input class="input-group-field" id="term" type="text" style="width:350px" accept-charset=utf-8>
+            <input class="input-group-field" id="term" type="text" style="width:350px; margin:1px;" accept-charset=utf-8>
             <span class="input-group-append">
-            <button type="button" class="btn btn-default" onclick="search_news();">Suchen</button>
-            <span style="color:#0066FF; padding-left:20px;"> <span id="chevron" style="display:none;"> </span>
+            <button type="button" class="btn btn-default" style="margin:5px;" onclick="search_news();">Suchen</button>
+            <span style="color:#0066FF; padding-left:20px; padding-top:5px"> <span id="chevron" style="display:none;"> </span>
             <!-- chevron -->
             </span> </span> </div>
           <div id="result_container" style="display:none;">
@@ -489,6 +534,7 @@
             <div id="search_result"></div>
           </div>
           <hr>
+          <div id="subcat_menue"><?php echo $subcat_menue; ?></div>
         </div>
         <!-- /.col-lg-12 -->
       </div>
@@ -583,8 +629,12 @@
         return false;
   });
   
+  function scroll_top(){
+  $('html, body').animate({scrollTop : 0},800);
+  }
+  
   // search
-  function search_news(){
+  function search_news(page){
   var term = $("#term").val();
   var category = $("#search_category option:selected").val();
   var searcharea = $("#search_area option:selected").val();
@@ -599,7 +649,8 @@
   term: term,
   category: category,
   searcharea: searcharea, 
-  textmode: textmode
+  textmode: textmode,
+  page: page
   },
   function(data){
   $("#search_result").html(data);
@@ -614,7 +665,7 @@
   
   function open_search_result(){
   $('#result_container').fadeIn();
-  $("#chevron").html("<i class=\"fa fa-chevron-up fa-2x\" style=\"color:#1F3169; cursor:pointer;\" title=\"Resultat anzeigen\" onclick=\"close_search_result();\"></i>");
+  $("#chevron").html("<i class=\"fa fa-chevron-up fa-2x\" style=\"color:#1F3169; cursor:pointer;\" title=\"Resultat ausblenden\" onclick=\"close_search_result();\"></i>");
   }
   
   //
@@ -629,10 +680,11 @@
   //
   function change_view_mode(){
   var kategorie = '<?php echo $kategorie; ?>';
+  var subcat = '<?php echo $subcat; ?>';
   if($("#view_mode").is(':checked')){
-  window.location.href='./?kategorie='+kategorie+''+"&textmode=1";
+  window.location.href='./?kategorie='+kategorie+'&subcat='+subcat+'&textmode=1';
   } else { 
-  window.location.href='./?kategorie='+kategorie+''+"&textmode=0";
+  window.location.href='./?kategorie='+kategorie+'&subcat='+subcat+'&textmode=0';
   }
   }
   
