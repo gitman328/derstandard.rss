@@ -54,6 +54,8 @@
 	
 	if($page == ""){ $page = 0; }
 	
+	$sql_page = $page*100;
+	
 	foreach($tags as $i => $key) 
 	{ 
 	$i > 0;
@@ -62,7 +64,7 @@
 	if(!isset($key) or $key == "") { $parameter = ""; } else { $parameter = "`title` LIKE '%".$key."%' ".$operator." "; }
 	$title_search = $title_search.$parameter;
 	}
-	$sql = "SELECT * FROM `".$category."` WHERE ".$title_search." ORDER BY `timestamp` DESC LIMIT ".$page.",100";
+	$sql = "SELECT * FROM `".$category."` WHERE ".$title_search." ORDER BY `timestamp` DESC LIMIT ".$sql_page.",100";
 	}
 	
 	// beschreibung
@@ -105,14 +107,14 @@
 	}
 	}
 	
-	if($search_results < 100){ $nav_forward = ""; }
+	if($search_results < 100){ $nav_forward = ""; $btn_status = 'display:none;'; } else { $btn_status = ''; }
 	
 	$result_msg = "
 	Es werden ".$search_results." Eintr&auml;ge auf der Seite angezeigt.
 	<span style=\"float:right\">
 	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_backward."')\" title=\"Seite zur&uuml;ck\"> <<< </button>
 	&nbsp;Seite <strong>".$pagecount."</strong>&nbsp;
-	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_forward."')\" title=\"Seite vorw&auml;rts\"> >>> </button>
+	<button style=\"cursor:pointer; font-size:10px; ".$btn_status."\" onclick=\"search_news('".$nav_forward."')\" title=\"Seite vorw&auml;rts\"> >>> </button>
 	</span>
 	<div class=\"spacer_20\"></div>";
 	
@@ -120,7 +122,7 @@
 	<span style=\"float:right\">
 	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_backward."'); scroll_top()\" title=\"Seite zur&uuml;ck\"> <<< </button>
 	&nbsp;Seite <strong>".$pagecount."</strong>&nbsp;
-	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_forward."'); scroll_top()\" title=\"Seite vorw&auml;rts\"> >>> </button>
+	<button style=\"cursor:pointer; font-size:10px; ".$btn_status."\" onclick=\"search_news('".$nav_forward."'); scroll_top()\" title=\"Seite vorw&auml;rts\"> >>> </button>
 	</span>
 	<div class=\"spacer_20\"></div>";
 	
@@ -386,14 +388,14 @@
     }
 	}
 	
-	if($search_results < 100){ $nav_forward = ""; }
+	if($search_results < 100){ $nav_forward = ""; $btn_status = 'display:none;'; } else { $btn_status = ''; }
 	
 	$result_msg = "
 	Es werden ".$search_results." Eintr&auml;ge auf der Seite angezeigt.
 	<span style=\"float:right\">
 	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_backward."')\" title=\"Seite zur&uuml;ck\"> <<< </button>
 	&nbsp;Seite <strong>".$pagecount."</strong>&nbsp;
-	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_forward."')\" title=\"Seite vorw&auml;rts\"> >>> </button>
+	<button style=\"cursor:pointer; font-size:10px; ".$btn_status."\" onclick=\"search_news('".$nav_forward."')\" title=\"Seite vorw&auml;rts\"> >>> </button>
 	</span>
 	<div class=\"spacer_20\"></div>";
 	
@@ -401,7 +403,7 @@
 	<span style=\"float:right\">
 	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_backward."'); scroll_top()\" title=\"Seite zur&uuml;ck\"> <<< </button>
 	&nbsp;Seite <strong>".$pagecount."</strong>&nbsp;
-	<button style=\"cursor:pointer; font-size:10px;\" onclick=\"search_news('".$nav_forward."'); scroll_top()\" title=\"Seite vorw&auml;rts\"> >>> </button>
+	<button style=\"cursor:pointer; font-size:10px; ".$btn_status."\" onclick=\"search_news('".$nav_forward."'); scroll_top()\" title=\"Seite vorw&auml;rts\"> >>> </button>
 	</span>
 	<div class=\"spacer_20\"></div>";
 	

@@ -402,6 +402,16 @@
 	if($show_startpage == 1 and $kategorie != ""){ $forecast_weather_list = ""; }
 	
 	if($show_fcw == 0){ $forecast_weather_list = ""; }
+	
+	$day = date("D", time());
+	if($day == 'Mon'){ $day = 'Mo'; }
+	if($day == 'Tue'){ $day = 'Di'; }
+	if($day == 'Wed'){ $day = 'Mi'; }
+	if($day == 'Thu'){ $day = 'Do'; }
+	if($day == 'Fri'){ $day = 'Fr'; }
+	if($day == 'Sat'){ $day = 'Sa'; }
+	if($day == 'Sun'){ $day = 'So'; }
+	$date = $day.'. '.date('d.m, H:i', time());
 		
 ?>
 <!DOCTYPE html>
@@ -417,6 +427,13 @@
 <link href="vendor/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="images/site.webmanifest">
+<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 <body id="page-top">
 <!-- Navigation -->
@@ -496,7 +513,8 @@
     </div>
     <!-- /.col-lg-2 -->
     <div class="col-lg-8">
-      <div class="spacer_30"></div>
+    <div style="padding-top: 10px; float:right;"><?php echo $date; ?></div>
+      <div class="spacer_20"></div>
       <div class="row">
         <div class="col-lg-12">
           <div class="input-group">
