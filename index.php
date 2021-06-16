@@ -193,22 +193,10 @@
 	// subcat menue
 	if($subcat != '')
 	{
+	$subcat_a = rawurlencode($subcat);
 	$subcat_menue = "<span style=\"font-size: 11px;\">Kategorie:  
-	<a href=?kategorie=".$kategorie."&subcat=".$subcat."&textmode=".$textmode.">".$kategorie." - ".$subcat."</a></span>";
-	
-//	$sql_3 = "SELECT DISTINCT (subcat_2) FROM `".strtolower($kategorie)."` WHERE `category` = '".$kategorie."' ";
-//	if ($result_3 = mysqli_query($dbmysqli,$sql_3))
-//	{
-//	while ($obj = mysqli_fetch_object($result_3)){
-//	{
-//	if($subcat == $obj->subcat_2){ $selected = "selected=\"selected\""; } else { $selected = ''; }
-//	if(!isset($dropdown_list) or $dropdown_list == ""){ $dropdown_list = ""; }
-//	$dropdown_list = $dropdown_list."<option href='?kategorie=".$kategorie."&subcat=".$obj->subcat_2."' ".$selected.">".$obj->subcat_2."</option>
-//	"; 
-//	}
-//	}
-//	}
-//	
+	<a href=?kategorie=".$kategorie."&subcat=".$subcat_a."&textmode=".$textmode.">".$kategorie." - ".$subcat."</a></span>";
+
 //	$subcat_menue = '
 //	<select id="subcat" class="input-group-dropdown" onchange="window.location.href=this.options[this.selectedIndex].getAttribute(\'href\')">
 //	'.$dropdown_list.'
@@ -316,7 +304,6 @@
 	<i class="fa fa-cog" style="cursor:pointer" onclick="weather_settings();" title="Wetteranzeige Einstellungen"></i>
 	</span>'; 
 	}
-	
 
 	// forecast weather list
 	$fc_days_total = $fc_days + 1;
@@ -710,6 +697,7 @@
   function show_more(page,limit){
   var kategorie = '<?php echo $kategorie; ?>';
   var textmode = '<?php echo $textmode; ?>';
+  var subcat = '<?php echo $subcat; ?>';
   $("#show_more_tab").fadeOut(500);
   setTimeout(function() {
   $("#show_more_tab").attr({ id:"" });
@@ -717,6 +705,7 @@
   {
   kategorie: kategorie,
   textmode: textmode,
+  subcat: subcat,
   page: page
   },
   function(data){

@@ -8,6 +8,9 @@
 	if(!isset($_REQUEST['textmode']) or $_REQUEST['textmode'] == ""){ $_REQUEST['textmode'] = ""; }
 	$textmode = $_REQUEST['textmode'];
 	
+	if(!isset($_REQUEST['subcat']) or $_REQUEST['subcat'] == ""){ $_REQUEST['subcat'] = ""; }
+	$subcat = $_REQUEST['subcat'];
+	
 	if(!isset($_REQUEST['page']) or $_REQUEST['page'] == ""){ $_REQUEST['page'] = ""; }
 	$page = $_REQUEST['page'];
 	
@@ -19,18 +22,28 @@
 
 	$sql_0 = "SELECT * FROM `".$rubric_desc_sql."` ORDER BY `timestamp` DESC LIMIT ".$page.",104 ";
 	
+	if($subcat != "")
+	{ 
+	$sql_0 = "SELECT * FROM `".$rubric_desc_sql."` WHERE 
+	`subcat_1` LIKE '".$subcat."' OR
+	`subcat_2` LIKE '".$subcat."' OR
+	`subcat_3` LIKE '".$subcat."' OR
+	`subcat_4` LIKE '".$subcat."'
+	ORDER BY `timestamp` DESC LIMIT ".$page.",104 "; 
+	}
+	
 	if ($result_0 = mysqli_query($dbmysqli,$sql_0))
 	{
 	while ($obj = mysqli_fetch_object($result_0)){
 	{
 	$day_desc = date("l", $obj->timestamp);
-	$day_desc = str_replace("Monday", "Montag", $day_desc);
-	$day_desc = str_replace("Tuesday", "Dienstag", $day_desc);
-	$day_desc = str_replace("Wednesday", "Mittwoch", $day_desc);
-	$day_desc = str_replace("Thursday", "Donnerstag", $day_desc);
-	$day_desc = str_replace("Friday", "Freitag", $day_desc);
-	$day_desc = str_replace("Saturday", "Samstag", $day_desc);
-	$day_desc = str_replace("Sunday", "Sonntag", $day_desc);
+	$day_desc = str_replace("Monday", "Mo", $day_desc);
+	$day_desc = str_replace("Tuesday", "Di", $day_desc);
+	$day_desc = str_replace("Wednesday", "Mi", $day_desc);
+	$day_desc = str_replace("Thursday", "Do", $day_desc);
+	$day_desc = str_replace("Friday", "Fr", $day_desc);
+	$day_desc = str_replace("Saturday", "Sa", $day_desc);
+	$day_desc = str_replace("Sunday", "So", $day_desc);
 	
 	$card_bg_color = "#FFFFFF";
 	
@@ -61,6 +74,13 @@
 	$cat_link = "<strong><a href=\"./?kategorie=".$obj->category."\">".$obj->category."</a></strong>";
 	}
 	
+	if($obj->subcat_1 != ""){ $data1 = '<a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_1.'&textmode='.$textmode.'\'>'.$obj->subcat_1.'</a>'; } else { $data1 = ""; }
+	if($obj->subcat_2 != ""){ $data2 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_2.'&textmode='.$textmode.'\'>'.$obj->subcat_2.'</a>'; } else { $data2 = ""; }
+	if($obj->subcat_3 != ""){ $data3 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_3.'&textmode='.$textmode.'\'>'.$obj->subcat_3.'</a>'; } else { $data3 = ""; }
+	if($obj->subcat_4 != ""){ $data4 = '<br><a href=\'?kategorie='.$obj->category.'&subcat='.$obj->subcat_4.'&textmode='.$textmode.'\'>'.$obj->subcat_4.'</a>'; } else { $data4 = ""; }
+	
+	$popup_content = $data1.$data2.$data3.$data4;
+	
 	if($textmode != "1")
 	{
 	$content_items = $content_items.'
@@ -79,6 +99,12 @@
 		  </div>
 		  <div class="card-footer" style="background-color:'.$card_bg_color.';">
 			<small class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</small>
+			<span style="float:right;">
+			<small>
+			<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" data-content="'.$popup_content.'">
+			<i title="Kategorie" style="cursor:pointer;" class="fa fa-list"></i></a>
+			</small>
+			</span>
 		  </div>
 		</div>
 	  </div>
@@ -101,6 +127,10 @@
 		  </div>
 		  <div class="card-footer-text" style="background-color:'.$card_bg_color.';">
 			<span class="text-muted">'.$cat_link.' | '.$day_desc.', '.$obj->date.'</span>
+			<span style="float:right;">
+			<a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="top" data-html="true" data-content="'.$popup_content.'">
+			<i title="Kategorie" style="cursor:pointer;" class="fa fa-list"></i></a>
+			</span>
 		  </div>
 		</div>
 	  </div>
@@ -128,9 +158,16 @@
 		</div>
 	  </div>
 	';
-
+	
 	if(!isset($content_items) or $content_items == ""){ $content_items = ""; $show_more_tab = ""; }
 	
 	echo $content_items.$show_more_tab;
 
 ?>
+<script>
+
+  $(function () {
+  $('[data-toggle="popover"]').popover()
+  })
+  
+</script>
