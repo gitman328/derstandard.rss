@@ -90,7 +90,7 @@
 	
 	
 	// 7 day forecast
-	$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/forecast-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	$xmlfile = "https://samsungmobile.accu-weather.com/widget/samsungmobile/weather-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
 	
 	$xml = simplexml_load_file($xmlfile);
 
@@ -100,27 +100,32 @@
 	
 	for ($i = 0; $i <= $i; $i++) {
 	
-	if(!isset($xml->forecast->day[$i]->obsDate) or $xml->forecast->day[$i]->obsDate == ""){ $xml->forecast->day[$i]->obsDate = ""; break; }
+	if(!isset($xml->forecast->day[$i]->obsdate) or $xml->forecast->day[$i]->obsdate == ""){ $xml->forecast->day[$i]->obsdate = ""; break; }
 	
-	$obs_date = $xml->forecast->day[$i]->obsDate;
-	$day_name = $xml->forecast->day[$i]->dayName;
+	$obs_date = $xml->forecast->day[$i]->obsdate;
+	$day_name = $xml->forecast->day[$i]->daycode;
 	$sunrise = $xml->forecast->day[$i]->sunrise;
 	$sunset = $xml->forecast->day[$i]->sunset;	
-	$shorttext = $xml->forecast->day[$i]->daytime->shortText;
+	$shorttext = $xml->forecast->day[$i]->daytime->txtshort;
 	$weather_icon = $xml->forecast->day[$i]->daytime->weathericon;
+	
+	$sunrise_ts = strtotime($sunrise);
+	$sunset_ts = strtotime($sunset);
+	$sunrise = date("H:i", $sunrise_ts);
+	$sunset = date("H:i", $sunset_ts);
 	
 	// day
 	$hightemperature_d = $xml->forecast->day[$i]->daytime->hightemperature;
 	$lowtemperature_d = $xml->forecast->day[$i]->daytime->lowtemperature;
-	$winddirection_d = $xml->forecast->day[$i]->daytime->windDirectionText;
-	$windspeed_d = $xml->forecast->day[$i]->daytime->windSpeed;
+	$winddirection_d = $xml->forecast->day[$i]->daytime->winddirection;
+	$windspeed_d = $xml->forecast->day[$i]->daytime->windspeed;
 	$rain_d = $xml->forecast->day[$i]->daytime->rain;
 	$snow_d = $xml->forecast->day[$i]->daytime->snow;
 	$ice_d = $xml->forecast->day[$i]->daytime->ice;
 	
 	// night
-	$winddirection_n = $xml->forecast->day[$i]->nighttime->windDirectionText;
-	$windspeed_n = $xml->forecast->day[$i]->nighttime->windSpeed;
+	$winddirection_n = $xml->forecast->day[$i]->nighttime->winddirection;
+	$windspeed_n = $xml->forecast->day[$i]->nighttime->windspeed;
 	$rain_n = $xml->forecast->day[$i]->nighttime->rain;
 	$snow_n = $xml->forecast->day[$i]->nighttime->snow;
 	$ice_n = $xml->forecast->day[$i]->nighttime->ice;
