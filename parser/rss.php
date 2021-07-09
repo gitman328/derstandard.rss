@@ -67,7 +67,6 @@
 
 	$description = strip_tags($description);	
 	$link = str_replace("?ref=rss", "", $link);
-	$image = strtolower($image);
 	$timestamp = strtotime($pubdate);
 	$date = date("d.m.Y", $timestamp);
 	$time = date("H:i", $timestamp);
