@@ -4,9 +4,9 @@
 	
 	if(!isset($_REQUEST["page"]) or $_REQUEST["page"] == "") { $_REQUEST["page"] = ""; }
 	
-	$term = $_REQUEST['term'];
-	$category = $_REQUEST['category'];
-	$searcharea = $_REQUEST['searcharea'];
+	$term = $_REQUEST["term"];
+	$category = $_REQUEST["category"];
+	$searcharea = $_REQUEST["searcharea"];
 	$textmode = $_REQUEST["textmode"];
 	$page = $_REQUEST["page"];
 	
@@ -14,6 +14,7 @@
 	if($page == 0){ $nav_backward = 0; $nav_forward = $page + 1; }
 	if($page >= 1){ $nav_backward = $page - 1; $nav_forward = $page + 1; }
 	$pagecount = $page + 1;
+	$sql_page = $page * 100;
 	
 	$search_results = "";
 	
@@ -43,7 +44,7 @@
 	if(!isset($key) or $key == "") { $parameter = ""; } else { $parameter = "`description` LIKE '%".$key."%' ".$operator." "; }
 	$description_search = $description_search.$parameter;
 	}
-	$sql = "SELECT * FROM `".$category."` WHERE ".$title_search." OR ".$description_search." ORDER BY `timestamp` DESC LIMIT ".$page.",100"; 
+	$sql = "SELECT * FROM `".$category."` WHERE ".$title_search." OR ".$description_search." ORDER BY `timestamp` DESC LIMIT ".$sql_page.",100"; 
 	}
 	
 	// titel
@@ -53,8 +54,6 @@
 	$x = count($tags);
 	
 	if($page == ""){ $page = 0; }
-	
-	$sql_page = $page*100;
 	
 	foreach($tags as $i => $key) 
 	{ 
@@ -81,7 +80,7 @@
 	if(!isset($key) or $key == "") { $parameter = ""; } else { $parameter = "`description` LIKE '%".$key."%' ".$operator." "; }
 	$description_search = $description_search.$parameter;
 	}
-	$sql = "SELECT * FROM `".$category."` WHERE ".$description_search." ORDER BY `timestamp` DESC LIMIT ".$page.",100";
+	$sql = "SELECT * FROM `".$category."` WHERE ".$description_search." ORDER BY `timestamp` DESC LIMIT ".$sql_page.",100";
 	}
 	
 	if ($result = mysqli_query($dbmysqli,$sql))
@@ -211,7 +210,7 @@
 	WHERE ".$title_search." OR ".$description_search." 
 	UNION
 	SELECT * FROM `diestandard`
-	WHERE ".$title_search." OR ".$description_search." ORDER BY timestamp DESC LIMIT ".$page.",100";
+	WHERE ".$title_search." OR ".$description_search." ORDER BY timestamp DESC LIMIT ".$sql_page.",100";
 	}
 	
 	// titel
@@ -276,7 +275,7 @@
 	WHERE ".$title_search."
 	UNION
 	SELECT * FROM `diestandard`
-	WHERE ".$title_search." ORDER BY timestamp DESC LIMIT ".$page.",100";
+	WHERE ".$title_search." ORDER BY timestamp DESC LIMIT ".$sql_page.",100";
 	}
 	
 	// beschreibung
@@ -341,7 +340,7 @@
 	WHERE ".$description_search."
 	UNION
 	SELECT * FROM `diestandard`
-	WHERE ".$description_search." ORDER BY timestamp DESC LIMIT ".$page.",100";
+	WHERE ".$description_search." ORDER BY timestamp DESC LIMIT ".$sql_page.",100";
 	}
 	
 	if ($result = mysqli_query($dbmysqli,$sql))
@@ -388,7 +387,7 @@
     }
 	}
 	
-	if($search_results < 100){ $nav_forward = ""; $btn_status = 'display:none;'; } else { $btn_status = ''; }
+	if($search_results < 100){ $nav_forward = ""; $btn_status = "display:none;"; } else { $btn_status = ""; }
 	
 	$result_msg = "
 	Es werden ".$search_results." Eintr&auml;ge auf der Seite angezeigt.
