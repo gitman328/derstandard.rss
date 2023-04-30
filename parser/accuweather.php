@@ -86,28 +86,29 @@
 	)
 	");
 	
-	} // current weather
+	} 
+	// current weather
 	
 	
 	// 7 day forecast
-	$xmlfile = "https://samsungmobile.accu-weather.com/widget/samsungmobile/weather-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/forecast-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
 	
 	$xml = simplexml_load_file($xmlfile);
-
+	
 	if($xml){
 	
 	mysqli_query($dbmysqli, "TRUNCATE `aw_forecast`");
 	
-	for ($i = 0; $i <= $i; $i++) {
+	for ($i = 1; $i <= 7; $i++) {
 	
-	if(!isset($xml->forecast->day[$i]->obsdate) or $xml->forecast->day[$i]->obsdate == ""){ $xml->forecast->day[$i]->obsdate = ""; break; }
+	if(!isset($xml->xpath('//day[@number="'.$i.'"]/obsDate')[0]) or $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0] == ""){ $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0] = ""; break; }
 	
-	$obs_date = $xml->forecast->day[$i]->obsdate;
-	$day_name = $xml->forecast->day[$i]->daycode;
-	$sunrise = $xml->forecast->day[$i]->sunrise;
-	$sunset = $xml->forecast->day[$i]->sunset;	
-	$shorttext = $xml->forecast->day[$i]->daytime->txtshort;
-	$weather_icon = $xml->forecast->day[$i]->daytime->weathericon;
+	$obs_date = $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0];
+	$day_name = $xml->xpath('//day[@number="'.$i.'"]/dayName')[0];
+	$sunrise = $xml->xpath('//day[@number="'.$i.'"]/sunrise')[0];
+	$sunset = $xml->xpath('//day[@number="'.$i.'"]/sunset')[0];
+	$shorttext = $xml->xpath('//day[@number="'.$i.'"]/daytime/shortText')[0];
+	$weather_icon = $xml->xpath('//day[@number="'.$i.'"]/daytime/weathericon')[0];
 	
 	$sunrise_ts = strtotime($sunrise);
 	$sunset_ts = strtotime($sunset);
@@ -115,20 +116,20 @@
 	$sunset = date("H:i", $sunset_ts);
 	
 	// day
-	$hightemperature_d = $xml->forecast->day[$i]->daytime->hightemperature;
-	$lowtemperature_d = $xml->forecast->day[$i]->daytime->lowtemperature;
-	$winddirection_d = $xml->forecast->day[$i]->daytime->winddirection;
-	$windspeed_d = $xml->forecast->day[$i]->daytime->windspeed;
-	$rain_d = $xml->forecast->day[$i]->daytime->rain;
-	$snow_d = $xml->forecast->day[$i]->daytime->snow;
-	$ice_d = $xml->forecast->day[$i]->daytime->ice;
+	$hightemperature_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/hightemperature')[0];
+	$lowtemperature_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/lowtemperature')[0];
+	$winddirection_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/windDirection')[0];
+	$windspeed_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/windSpeed')[0];
+	$rain_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/rain')[0];
+	$snow_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/snow')[0];
+	$ice_d = $xml->xpath('//day[@number="'.$i.'"]/daytime/ice')[0];
 	
 	// night
-	$winddirection_n = $xml->forecast->day[$i]->nighttime->winddirection;
-	$windspeed_n = $xml->forecast->day[$i]->nighttime->windspeed;
-	$rain_n = $xml->forecast->day[$i]->nighttime->rain;
-	$snow_n = $xml->forecast->day[$i]->nighttime->snow;
-	$ice_n = $xml->forecast->day[$i]->nighttime->ice;
+	$winddirection_n = $xml->xpath('//day[@number="'.$i.'"]/nighttime/windDirection')[0];
+	$windspeed_n = $xml->xpath('//day[@number="'.$i.'"]/nighttime/windSpeed')[0];
+	$rain_n = $xml->xpath('//day[@number="'.$i.'"]/nighttime/rain')[0];
+	$snow_n = $xml->xpath('//day[@number="'.$i.'"]/nighttime/snow')[0];
+	$ice_n = $xml->xpath('//day[@number="'.$i.'"]/nighttime/ice')[0];
 	
 	$timestamp = strtotime($obs_date.'23:59');
 	
@@ -178,6 +179,6 @@
 	
 	}
 	
-	} // 7 day forecast
+	}
 
 ?>
