@@ -8,7 +8,8 @@
 	$city_id = $result_0['aw_city_id'];
 
 	// current conditions
-	$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/current-conditions.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	//$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/current-conditions.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	$xmlfile = "https://s3blog.org/forecastfox3-accu-weather/forecastfox3/current-conditions.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
 	
 	$xml = simplexml_load_file($xmlfile);
 
@@ -28,6 +29,47 @@
 	$country = $xml->local->country;
 	$area = $xml->local->adminArea;
 	$city_id = $xml->local->cityId;
+	$url = $xml->current->url;
+	
+	# location
+	$curl = curl_init();
+	$headers = array(
+	"GET HTTP/1.0",
+	"Content-type: text/html;charset=\"utf-8\"",
+	"Accept: *",
+	"Cache-Control: no-cache",
+	"Connection: keep-alive",
+	"Upgrade-Insecure-Requests: 1"
+	);
+
+	curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+	CURLOPT_URL => $url,
+    CURLOPT_USERAGENT => 'Mozilla 5./0 (compatible) Opera or Gecko',
+	CURLOPT_HTTPAUTH => CURLAUTH_DIGEST,
+	CURLOPT_FOLLOWLOCATION => TRUE,
+	CURLOPT_SSL_VERIFYHOST => FALSE,
+	CURLOPT_SSL_VERIFYPEER => FALSE,
+	CURLOPT_HTTPHEADER => $headers
+	));
+
+	$response = curl_exec($curl);
+	curl_close($curl);
+	
+	preg_match_all('~"name"(.*?)}~s', $response, $matches);
+	$location = $matches[0][1];
+	$location = str_replace('"', '', $location);
+	$location = str_replace(':', '', $location);
+	$location = str_replace('name', '', $location);
+	$location = str_replace('}', '', $location);
+	
+	$tags = explode(',', $location);
+	foreach($tags as $i => $key){ $i > 0; }
+	
+	$city = $tags[1];
+	$country = $tags[2];
+	$area = $tags[0];
+	# location
 	
 	// date, time
 	$timestamp = strtotime($xml->cache->refreshDateTime);
@@ -91,7 +133,8 @@
 	
 	
 	// 7 day forecast
-	$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/forecast-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	//$xmlfile = "http://forecastfox3.accuweather.com/adcbin/forecastfox3/forecast-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
+	$xmlfile = "https://s3blog.org/forecastfox3-accu-weather/forecast-data.asp?location=cityId%3A".$city_id."&metric=1&langId=9";
 	
 	$xml = simplexml_load_file($xmlfile);
 	
@@ -99,16 +142,25 @@
 	
 	mysqli_query($dbmysqli, "TRUNCATE `aw_forecast`");
 	
-	for ($i = 1; $i <= 7; $i++) {
+	for ($i = 1; $i <= 8; $i++) {
 	
 	if(!isset($xml->xpath('//day[@number="'.$i.'"]/obsDate')[0]) or $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0] == ""){ $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0] = ""; break; }
 	
 	$obs_date = $xml->xpath('//day[@number="'.$i.'"]/obsDate')[0];
 	$day_name = $xml->xpath('//day[@number="'.$i.'"]/dayName')[0];
+	$day_code = $xml->xpath('//day[@number="'.$i.'"]/dayCode')[0];
 	$sunrise = $xml->xpath('//day[@number="'.$i.'"]/sunrise')[0];
 	$sunset = $xml->xpath('//day[@number="'.$i.'"]/sunset')[0];
 	$shorttext = $xml->xpath('//day[@number="'.$i.'"]/daytime/shortText')[0];
 	$weather_icon = $xml->xpath('//day[@number="'.$i.'"]/daytime/weathericon')[0];
+	
+	if($day_code == '1'){ $day_name = 'Sonntag'; }
+	if($day_code == '2'){ $day_name = 'Montag'; }
+	if($day_code == '3'){ $day_name = 'Dienstag'; }
+	if($day_code == '4'){ $day_name = 'Mittwoch'; }
+	if($day_code == '5'){ $day_name = 'Donnerstag'; }
+	if($day_code == '6'){ $day_name = 'Freitag'; }
+	if($day_code == '7'){ $day_name = 'Samstag'; }
 	
 	$sunrise_ts = strtotime($sunrise);
 	$sunset_ts = strtotime($sunset);
